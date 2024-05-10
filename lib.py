@@ -23,10 +23,15 @@ def dump_json(data,path):
 
 def get_layer_url(layername,use_alt=False):
 
-    if use_alt:
-        return urljoin(MAPSERVER_URL_ALT, LAYER_IDS[layername])
+    baseurl = MAPSERVER_URL
 
-    return urljoin(MAPSERVER_URL, LAYER_IDS[layername])
+    if use_alt:
+        baseurl = MAPSERVER_URL_ALT
+
+    if not baseurl.endswith('/'):
+        baseurl += '/'
+
+    return urljoin(baseurl, LAYER_IDS[layername])
 
 def get_layer_metadata(layername,use_alt=False,outpath=None):
     """
@@ -68,7 +73,7 @@ def silly_dumper(layername,use_alt=False,outpath=None,crs=DEFAULT_CRS):
     Returns:
         gpd.GeoDataFrame: The GeoDataFrame containing the dumped features.
     """
-    
+
     layer_url = get_layer_url(layername,use_alt=use_alt)
 
     d = EsriDumper(layer_url)

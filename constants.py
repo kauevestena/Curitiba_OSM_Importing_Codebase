@@ -1,7 +1,9 @@
 
 DEFAULT_CRS = 'EPSG:31982'
 
-ROOT_URL = 'https://geocuritiba.ippuc.org.br/server/rest/services/GeoCuritiba'
+# always end up with a '/'
+
+ROOT_URL = 'https://geocuritiba.ippuc.org.br/server/rest/services/GeoCuritiba/'
 
 MAPSERVER_URL = 'https://geocuritiba.ippuc.org.br/server/rest/services/GeoCuritiba/Publico_Interno_GeoCuritiba_BaseCartografica_para_BC/MapServer/'
 
