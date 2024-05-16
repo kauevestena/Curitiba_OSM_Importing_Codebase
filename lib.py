@@ -127,8 +127,14 @@ def read_file_as_list(filepath):
     else:
         return []
 
-def listdir_fullpath(inputfolderpath):
-    return [os.path.join(inputfolderpath,filename) for filename in os.listdir(inputfolderpath)]
+def listdir_fullpath(inputfolderpath,extension=None):
+    if not os.path.exists(inputfolderpath):
+        return []
+    else:
+        if extension:
+            return [os.path.join(inputfolderpath,filename) for filename in os.listdir(inputfolderpath) if filename.endswith(extension)]
+        else:
+            return [os.path.join(inputfolderpath,filename) for filename in os.listdir(inputfolderpath)]
 
 @retry(wait=wait_exponential(multiplier=1, min=10, max=120) + wait_random(min=1, max=12)) # ITS LAZY BUT RESILIENT!!!
 def geojsonl_lazy_dumper(layername,use_alt=False,outfolderpath=None,out_crs=None,chunksize=10000):
@@ -167,7 +173,7 @@ def geojsonl_lazy_dumper(layername,use_alt=False,outfolderpath=None,out_crs=None
 
         start_idx = n_chunks * resumed_chunksize
 
-        existent_outpaths = listdir_fullpath(outfolderpath)
+        existent_outpaths = listdir_fullpath(outfolderpath,extension='.geojsonl')
 
         # deleting uncompleted chunks:
         for outpath in existent_outpaths:
