@@ -6,10 +6,7 @@ from esridump.dumper import EsriDumper
 from urllib.parse import urljoin
 import geopandas as gpd
 import logging
-
-logging.basicConfig(filename='global_log.log',
-                    level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s', 
-                    datefmt='%d-%b-%y %H:%M:%S',filemode='w')
+from tenacity import retry, wait_exponential, wait_random
 
 OSM_CRS = 'EPSG:4326'
 
@@ -126,11 +123,15 @@ def append_to_file(filepath,data_str):
 def read_file_as_list(filepath):
     if os.path.exists(filepath):
         with open(filepath,'r',encoding='utf-8') as f:
-            return f.readlines()
+            return [line.strip() for line in f.readlines()]
     else:
         return []
 
-def geojsonl_lazy_dumper(layername,use_alt=False,outfolderpath=None,crs=DEFAULT_CRS,chunksize=10000):
+def listdir_fullpath(inputfolderpath):
+    return [os.path.join(inputfolderpath,filename) for filename in os.listdir(inputfolderpath)]
+
+@retry(wait=wait_exponential(multiplier=1, min=10, max=120) + wait_random(min=1, max=12)) # ITS LAZY BUT RESILIENT!!!
+def geojsonl_lazy_dumper(layername,use_alt=False,outfolderpath=None,out_crs=None,chunksize=10000):
     """
     Dumps the features of a given layer in the geojsonl format with resume capabilities.
 
@@ -155,35 +156,55 @@ def geojsonl_lazy_dumper(layername,use_alt=False,outfolderpath=None,crs=DEFAULT_
     downloaded_registry_path = os.path.join(outfolderpath,f'{layername}_downloaded_registry.txt')
     downloaded_registry = read_file_as_list(downloaded_registry_path)
 
+    n_chunks = 0
+    start_idx = 0
+
+    if downloaded_registry:
+        n_chunks = len(downloaded_registry)
+
+        #estimate the chunk size by reading one file:
+        resumed_chunksize = len(read_file_as_list(downloaded_registry[0]))
+
+        start_idx = n_chunks * resumed_chunksize
+
+        existent_outpaths = listdir_fullpath(outfolderpath)
+
+        # deleting uncompleted chunks:
+        for outpath in existent_outpaths:
+            if not outpath in downloaded_registry:
+                os.remove(outpath)
+
+
     # create output folder if it doesn't exist
     create_dir(outfolderpath)
 
     # get layer stuff
-    _ , d , total_feats, layer_metadata = get_basic_layer_stuff(layername,use_alt=use_alt)
+    layer_url , _ , total_feats, layer_metadata = get_basic_layer_stuff(layername,use_alt=use_alt)
 
-    j = 0
+    # for proper resuming capabilities: 
+    d = EsriDumper(layer_url,start_with=start_idx)
+
+    j = n_chunks # - 1
     outpath = layer_outpath(layername,outfolderpath,j=j)
     
     metadata_outpath = os.path.join(outfolderpath,f'{layername}_metadata.json')
     dump_json(layer_metadata,metadata_outpath)
 
-    for i,feature in tqdm(enumerate(d),total=total_feats):
-        if i % chunksize == 0 and i > 0:
+    for i,feature in tqdm(enumerate(d,start=start_idx),total=total_feats,initial=start_idx):
+        if i % chunksize == 0 and i > start_idx:
             # noting that the current chunk was properly downloaded
             if not outpath in downloaded_registry:
-                append_to_file(downloaded_registry_path,outpath)
+                append_to_file(downloaded_registry_path,outpath+'\n')
 
             # updating outfile:
             j += 1
             outpath = layer_outpath(layername,outfolderpath,j=j)
 
-            # but in case the file exists, it will hold duplicate features, then:
-            if not outpath in downloaded_registry:
-                if os.path.exists(outpath):
-                    os.remove(outpath)
-
-        if not outpath in downloaded_registry:
-            append_to_file(outpath,json.dumps(feature)+'\n')
+        append_to_file(outpath,json.dumps(feature)+'\n')
 
 # one-time setups
-create_folderlist(['outputs','tests'])
+create_folderlist(['outputs','tests','logs'])
+
+logging.basicConfig(filename='logs/global_log.log',
+                    level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s', 
+                    datefmt='%d-%b-%y %H:%M:%S',filemode='w')
