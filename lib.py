@@ -5,6 +5,13 @@ from tqdm import tqdm
 from esridump.dumper import EsriDumper
 from urllib.parse import urljoin
 import geopandas as gpd
+import logging
+
+logging.basicConfig(filename='global_log.log',
+                    level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s', 
+                    datefmt='%d-%b-%y %H:%M:%S',filemode='w')
+
+OSM_CRS = 'EPSG:4326'
 
 def create_dir(path):
     if not os.path.exists(path):
@@ -34,7 +41,8 @@ def get_layer_url(layername,use_alt=False):
     return urljoin(baseurl, LAYER_IDS[layername])
 
 def get_layer_metadata(layername,use_alt=False,outpath=None):
-    """
+    """    layer_url, d , total_feats, layer_metadata = get_basic_layer_stuff(layername,use_alt=use_alt)
+
     Retrieves the metadata of a layer from the EsriDumper object.
 
     Args:
@@ -53,11 +61,28 @@ def get_layer_metadata(layername,use_alt=False,outpath=None):
     if outpath:
         dump_json(md,outpath)
 
-    return d.get_metadata()
+    return md
 
 # TODO: get_layer_crs
 
-def silly_dumper(layername,use_alt=False,outpath=None,crs=DEFAULT_CRS):
+def get_basic_layer_stuff(layername,use_alt=False):
+    
+    layer_url = get_layer_url(layername,use_alt=use_alt)
+
+    d = EsriDumper(layer_url)
+
+    total_feats = None
+
+    try :
+        total_feats = d.get_feature_count()
+    except Exception as e:
+        logging.error(e)
+    
+    layer_metadata = d.get_metadata()
+
+    return layer_url, d , total_feats, layer_metadata
+
+def silly_dumper(layername,use_alt=False,outpath=None,different_crs=None,as_geoparquet=False):
     """
     Dumps the features of a given layer from the EsriDumper object and returns a GeoDataFrame.
     
@@ -73,21 +98,20 @@ def silly_dumper(layername,use_alt=False,outpath=None,crs=DEFAULT_CRS):
     Returns:
         gpd.GeoDataFrame: The GeoDataFrame containing the dumped features.
     """
-
-    layer_url = get_layer_url(layername,use_alt=use_alt)
-
-    d = EsriDumper(layer_url)
-
-    total_feats = d.get_feature_count()
-
-    layer_metadata = d.get_metadata()
+    _ , d , total_feats, layer_metadata = get_basic_layer_stuff(layername,use_alt=use_alt)
 
     all_feats = [feature for feature in tqdm(d,total=total_feats)]
 
-    as_gdf = gpd.GeoDataFrame.from_features(all_feats,crs=crs)
+    if different_crs:
+        as_gdf = gpd.GeoDataFrame.from_features(all_feats,crs=different_crs).to_crs(OSM_CRS)
+    else:
+        as_gdf = gpd.GeoDataFrame.from_features(all_feats,crs=OSM_CRS) # apparently, default is WGS84 already
 
     if outpath:
-        as_gdf.to_file(outpath)
+        if as_geoparquet:
+            as_gdf.to_parquet(outpath)
+        else:
+            as_gdf.to_file(outpath)
 
         metadata_outpath = outpath.split('.')[0] + '_metadata.json'
 
@@ -95,6 +119,56 @@ def silly_dumper(layername,use_alt=False,outpath=None,crs=DEFAULT_CRS):
 
     return as_gdf
 
+def append_to_file(filepath,data_str):
+    with open(filepath,'a',encoding='utf-8') as f:
+        f.write(data_str)
 
-# only time setups
+def read_file_as_list(filepath):
+    if os.path.exists(filepath):
+        with open(filepath,'r',encoding='utf-8') as f:
+            return f.readlines()
+    else:
+        return []
+
+def geojsonl_lazy_dumper(layername,use_alt=False,outfolderpath=None,crs=DEFAULT_CRS,chunksize=10000):
+    def layer_outpath(layername,outfolderpath,j=0):
+        return os.path.join(outfolderpath,f'{layername}_chunk_{j}.geojsonl')
+
+    # download registry, to give resume capabilities:
+    # TODO: transform into a class, for ease up using in other situations
+    # TODO: check if sometimes the iteration isn't random...
+    downloaded_registry_path = os.path.join(outfolderpath,f'{layername}_downloaded_registry.txt')
+    downloaded_registry = read_file_as_list(downloaded_registry_path)
+
+    # create output folder if it doesn't exist
+    create_dir(outfolderpath)
+
+    # get layer stuff
+    _ , d , total_feats, layer_metadata = get_basic_layer_stuff(layername,use_alt=use_alt)
+
+    j = 0
+    outpath = layer_outpath(layername,outfolderpath,j=j)
+    
+    metadata_outpath = os.path.join(outfolderpath,f'{layername}_metadata.json')
+    dump_json(layer_metadata,metadata_outpath)
+
+    for i,feature in tqdm(enumerate(d),total=total_feats):
+        if i % chunksize == 0 and i > 0:
+            # noting that the current chunk was properly downloaded
+            if not outpath in downloaded_registry:
+                append_to_file(downloaded_registry_path,outpath)
+
+            # updating outfile:
+            j += 1
+            outpath = layer_outpath(layername,outfolderpath,j=j)
+
+            # but in case the file exists, it will hold duplicate features, then:
+            if not outpath in downloaded_registry:
+                if os.path.exists(outpath):
+                    os.remove(outpath)
+
+        if not outpath in downloaded_registry:
+            append_to_file(outpath,json.dumps(feature)+'\n')
+
+# one-time setups
 create_folderlist(['outputs','tests'])
