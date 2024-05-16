@@ -131,12 +131,27 @@ def read_file_as_list(filepath):
         return []
 
 def geojsonl_lazy_dumper(layername,use_alt=False,outfolderpath=None,crs=DEFAULT_CRS,chunksize=10000):
+    """
+    Dumps the features of a given layer in the geojsonl format with resume capabilities.
+
+    Parameters:
+        layername (str): The name of the layer to dump.
+        use_alt (bool, optional): Whether to use the alternative layer URL. Defaults to False.
+        outfolderpath (str): The path to output the dumped features.
+        crs (str): The CRS of the dumped features. Defaults to DEFAULT_CRS.
+        chunksize (int): The number of features per chunk.
+
+    Returns:
+        None
+    """
     def layer_outpath(layername,outfolderpath,j=0):
+
         return os.path.join(outfolderpath,f'{layername}_chunk_{j}.geojsonl')
 
     # download registry, to give resume capabilities:
     # TODO: transform into a class, for ease up using in other situations
     # TODO: check if sometimes the iteration isn't random...
+    # TODO: skip already downloaded features using d = EsriDumper(layer_url,start_with=N) being N the number of already downloaded features
     downloaded_registry_path = os.path.join(outfolderpath,f'{layername}_downloaded_registry.txt')
     downloaded_registry = read_file_as_list(downloaded_registry_path)
 
