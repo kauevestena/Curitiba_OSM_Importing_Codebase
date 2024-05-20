@@ -165,3 +165,4 @@ test.py
 *.log
 outputs
 logs
+tests.py

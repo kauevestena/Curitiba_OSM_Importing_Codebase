@@ -16,3 +16,5 @@ LAYER_IDS = {
     'buildings_alt': '62'
 }
 
+# for tiled functions (yet to be implemented)
+ZOOM_LEVEL = 17

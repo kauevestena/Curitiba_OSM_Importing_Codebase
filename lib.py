@@ -35,7 +35,12 @@ def get_layer_url(layername,use_alt=False):
     if not baseurl.endswith('/'):
         baseurl += '/'
 
-    return urljoin(baseurl, LAYER_IDS[layername])
+    layer_id = LAYER_IDS[layername]
+
+    if use_alt:
+        layer_id = LAYER_IDS[layername+'_alt']
+
+    return urljoin(baseurl,layer_id)
 
 def get_layer_metadata(layername,use_alt=False,outpath=None):
     """    layer_url, d , total_feats, layer_metadata = get_basic_layer_stuff(layername,use_alt=use_alt)
@@ -137,7 +142,7 @@ def listdir_fullpath(inputfolderpath,extension=None):
             return [os.path.join(inputfolderpath,filename) for filename in os.listdir(inputfolderpath)]
 
 @retry(wait=wait_exponential(multiplier=1, min=10, max=120) + wait_random(min=1, max=12)) # ITS LAZY BUT RESILIENT!!!
-def geojsonl_lazy_dumper(layername,use_alt=False,outfolderpath=None,out_crs=None,chunksize=10000):
+def geojsonl_lazy_dumper(layername,use_alt=False,outfolderpath=None,out_crs=None,chunksize=1000,page_size=100):
     """
     Dumps the features of a given layer in the geojsonl format with resume capabilities.
 
@@ -188,7 +193,7 @@ def geojsonl_lazy_dumper(layername,use_alt=False,outfolderpath=None,out_crs=None
     layer_url , _ , total_feats, layer_metadata = get_basic_layer_stuff(layername,use_alt=use_alt)
 
     # for proper resuming capabilities: 
-    d = EsriDumper(layer_url,start_with=start_idx)
+    d = EsriDumper(layer_url,start_with=start_idx,max_page_size=page_size)
 
     j = n_chunks # - 1
     outpath = layer_outpath(layername,outfolderpath,j=j)
