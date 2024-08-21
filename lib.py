@@ -17,10 +17,26 @@ def create_dir(path):
 def create_folderlist(inputlist):
     return [create_dir(dirpath) for dirpath in inputlist]
 
-def read_json(path):
-    with open(path) as f:
-        return json.load(f)
+def read_json(path,default={}):
+    if os.path.exists(path):
+        with open(path) as f:
+            return json.load(f)
+    else:
+        return default
+        """
+        Reads a JSON file from the specified path.
     
+        Args:
+            path (str): The path to the JSON file.
+            default (Union[dict, list, None], optional): The default value to return if the file does not exist.
+                                                        If default is a dictionary, it will be used as the default value.
+                                                        If default is a list, it will be used as the default value.
+                                                        If default is None, an empty dictionary will be used as the default value.
+                                                        Defaults to {}.
+    
+        Returns:
+            dict or list: The contents of the JSON file, or the default value if the file does not exist.
+        """
 def dump_json(data,path):
     with open(path,'w',encoding='utf-8') as f:
         json.dump(data,f,ensure_ascii=False,indent=4)
