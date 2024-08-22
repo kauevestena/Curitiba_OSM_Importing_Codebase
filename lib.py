@@ -7,6 +7,7 @@ from urllib.parse import urljoin
 import geopandas as gpd
 import logging
 from tenacity import retry, wait_exponential, wait_random
+from json import JSONEncoder
 
 OSM_CRS = 'EPSG:4326'
 
@@ -18,28 +19,37 @@ def create_folderlist(inputlist):
     return [create_dir(dirpath) for dirpath in inputlist]
 
 def read_json(path,default={}):
+    """
+    Reads a JSON file from the specified path.
+
+    Args:
+        path (str): The path to the JSON file.
+        default (Union[dict, list, None], optional): The default value to return if the file does not exist.
+                                                    If default is a dictionary, it will be used as the default value.
+                                                    If default is a list, it will be used as the default value.
+                                                    If default is None, an empty dictionary will be used as the default value.
+                                                    Defaults to {}.
+
+    Returns:
+        dict or list: The contents of the JSON file, or the default value if the file does not exist.
+    """
     if os.path.exists(path):
         with open(path) as f:
             return json.load(f)
     else:
         return default
-        """
-        Reads a JSON file from the specified path.
-    
-        Args:
-            path (str): The path to the JSON file.
-            default (Union[dict, list, None], optional): The default value to return if the file does not exist.
-                                                        If default is a dictionary, it will be used as the default value.
-                                                        If default is a list, it will be used as the default value.
-                                                        If default is None, an empty dictionary will be used as the default value.
-                                                        Defaults to {}.
-    
-        Returns:
-            dict or list: The contents of the JSON file, or the default value if the file does not exist.
-        """
-def dump_json(data,path):
-    with open(path,'w',encoding='utf-8') as f:
-        json.dump(data,f,ensure_ascii=False,indent=4)
+
+class Int64Encoder(JSONEncoder):
+    def default(self, o):
+        if isinstance(o, int):
+            return str(o)
+        return super().default(o)
+
+def dump_json(data, path):
+    with open(path, 'w', encoding='utf-8') as f:
+        json.dump(data, f, ensure_ascii=False, indent=4,
+                #   cls=Int64Encoder,
+                )
 
 def get_layer_url(layername,use_alt=False):
 
@@ -233,3 +243,6 @@ create_folderlist(['outputs','tests','logs'])
 logging.basicConfig(filename='logs/global_log.log',
                     level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s', 
                     datefmt='%d-%b-%y %H:%M:%S',filemode='w')
+
+def list_of_set_of_list(inputlist):
+    return list(set(inputlist))

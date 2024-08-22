@@ -1,0 +1,2520 @@
+{
+    "currentVersion": 10.81,
+    "cimVersion": "2.6.0",
+    "id": 72,
+    "name": "Edificação",
+    "type": "Feature Layer",
+    "description": "",
+    "geometryType": "esriGeometryPolygon",
+    "sourceSpatialReference": {
+        "wkid": 31982,
+        "latestWkid": 31982,
+        "xyTolerance": 0.001,
+        "zTolerance": 0.001,
+        "mTolerance": 0.001,
+        "falseX": -5120900,
+        "falseY": 1900,
+        "xyUnits": 10000,
+        "falseZ": -100000,
+        "zUnits": 10000,
+        "falseM": -100000,
+        "mUnits": 10000
+    },
+    "copyrightText": "",
+    "parentLayer": {
+        "id": 70,
+        "name": "Mapeamento Topográfico - Grande Escala"
+    },
+    "subLayers": [],
+    "minScale": 2500,
+    "maxScale": 0,
+    "referenceScale": 0.0,
+    "drawingInfo": {
+        "renderer": {
+            "type": "simple",
+            "symbol": {
+                "type": "esriSFS",
+                "style": "esriSFSSolid",
+                "color": [
+                    255,
+                    190,
+                    190,
+                    255
+                ],
+                "outline": {
+                    "type": "esriSLS",
+                    "style": "esriSLSSolid",
+                    "color": [
+                        0,
+                        0,
+                        0,
+                        255
+                    ],
+                    "width": 0.3
+                }
+            }
+        },
+        "scaleSymbols": true,
+        "transparency": 30,
+        "labelingInfo": [
+            {
+                "labelExpressionInfo": {
+                    "expression": "$feature.nome"
+                },
+                "labelPlacement": "esriServerPolygonPlacementAlwaysHorizontal",
+                "removeDuplicates": "all",
+                "removeDuplicatesDistance": 0,
+                "multiPart": "labelLargest",
+                "deconflictionStrategy": "static",
+                "repeatLabel": false,
+                "allowOverrun": true,
+                "allowOverlapOfFeatureInterior": "avoid",
+                "stackLabel": false,
+                "useCodedValues": true,
+                "maxScale": 0,
+                "minScale": 2500,
+                "name": "Class 1",
+                "priority": 4,
+                "symbol": {
+                    "type": "esriTS",
+                    "color": [
+                        0,
+                        0,
+                        0,
+                        255
+                    ],
+                    "backgroundColor": null,
+                    "borderLineColor": null,
+                    "borderLineSize": null,
+                    "verticalAlignment": "bottom",
+                    "horizontalAlignment": "left",
+                    "rightToLeft": false,
+                    "angle": 0,
+                    "xoffset": 0,
+                    "yoffset": 0,
+                    "kerning": true,
+                    "haloColor": null,
+                    "haloSize": null,
+                    "font": {
+                        "family": "Arial",
+                        "size": 8,
+                        "style": "normal",
+                        "weight": "normal",
+                        "decoration": "none"
+                    }
+                }
+            }
+        ]
+    },
+    "defaultVisibility": true,
+    "extent": {
+        "xmin": 662115.7805000003,
+        "ymin": 7163021.3087,
+        "xmax": 682394.4365999997,
+        "ymax": 7195497.8984,
+        "spatialReference": {
+            "wkid": 31982,
+            "latestWkid": 31982,
+            "xyTolerance": 0.001,
+            "zTolerance": 0.001,
+            "mTolerance": 0.001,
+            "falseX": -5120900,
+            "falseY": 1900,
+            "xyUnits": 10000,
+            "falseZ": -100000,
+            "zUnits": 10000,
+            "falseM": -100000,
+            "mUnits": 10000
+        }
+    },
+    "hasAttachments": false,
+    "htmlPopupType": "esriServerHTMLPopupTypeAsHTMLText",
+    "displayField": "administracao",
+    "typeIdField": null,
+    "subtypeFieldName": null,
+    "subtypeField": null,
+    "defaultSubtypeCode": null,
+    "fields": [
+        {
+            "name": "objectid",
+            "type": "esriFieldTypeOID",
+            "alias": "objectid",
+            "domain": null
+        },
+        {
+            "name": "administracao",
+            "type": "esriFieldTypeSmallInteger",
+            "alias": "Administração",
+            "domain": {
+                "type": "codedValue",
+                "name": "administracao",
+                "description": "",
+                "codedValues": [
+                    {
+                        "name": "Desconhecida",
+                        "code": 0
+                    },
+                    {
+                        "name": "Federal",
+                        "code": 2
+                    },
+                    {
+                        "name": "Estadual/Distrital",
+                        "code": 3
+                    },
+                    {
+                        "name": "Municipal",
+                        "code": 4
+                    },
+                    {
+                        "name": "Concessionada",
+                        "code": 5
+                    },
+                    {
+                        "name": "Privada",
+                        "code": 6
+                    },
+                    {
+                        "name": "Não aplicável",
+                        "code": 97
+                    },
+                    {
+                        "name": "A SER PREENCHIDO",
+                        "code": 9999
+                    }
+                ],
+                "mergePolicy": "esriMPTDefaultValue",
+                "splitPolicy": "esriSPTDuplicate"
+            }
+        },
+        {
+            "name": "classeativecon",
+            "type": "esriFieldTypeSmallInteger",
+            "alias": "Classe da Atividade Econômica",
+            "domain": {
+                "type": "codedValue",
+                "name": "classe_ativ_econ",
+                "description": "",
+                "codedValues": [
+                    {
+                        "name": "Desconhecida",
+                        "code": 0
+                    },
+                    {
+                        "name": "Produção de energia elétrica",
+                        "code": 2
+                    },
+                    {
+                        "name": "Transmissão de energia elétrica",
+                        "code": 3
+                    },
+                    {
+                        "name": "Distribuição de energia elétrica",
+                        "code": 4
+                    },
+                    {
+                        "name": "Captação, tratamento e distribuição de água",
+                        "code": 5
+                    },
+                    {
+                        "name": "Telecomunicações",
+                        "code": 6
+                    },
+                    {
+                        "name": "Administração pública em geral",
+                        "code": 7
+                    },
+                    {
+                        "name": "Seguridade social",
+                        "code": 8
+                    },
+                    {
+                        "name": "Regulação das atividades econômicas",
+                        "code": 9
+                    },
+                    {
+                        "name": "Atividades de apoio à administração pública",
+                        "code": 10
+                    },
+                    {
+                        "name": "Relações exteriores",
+                        "code": 11
+                    },
+                    {
+                        "name": "Defesa",
+                        "code": 12
+                    },
+                    {
+                        "name": "Justiça",
+                        "code": 13
+                    },
+                    {
+                        "name": "Segurança e ordem pública",
+                        "code": 14
+                    },
+                    {
+                        "name": "Defesa civil",
+                        "code": 15
+                    },
+                    {
+                        "name": "Regulação das atividades sociais e culturais",
+                        "code": 16
+                    },
+                    {
+                        "name": "Educação infantil - creche",
+                        "code": 17
+                    },
+                    {
+                        "name": "Educação infantil - pré-escola",
+                        "code": 18
+                    },
+                    {
+                        "name": "Ensino fundamental",
+                        "code": 19
+                    },
+                    {
+                        "name": "Ensino médio",
+                        "code": 20
+                    },
+                    {
+                        "name": "Educação superior - graduação",
+                        "code": 21
+                    },
+                    {
+                        "name": "Educação superior - graduação e pós-graduação",
+                        "code": 22
+                    },
+                    {
+                        "name": "Educação superior - pós-graduação e extensão",
+                        "code": 23
+                    },
+                    {
+                        "name": "Educação profissional de nível técnico",
+                        "code": 24
+                    },
+                    {
+                        "name": "Educação profissional de nível tecnológico",
+                        "code": 25
+                    },
+                    {
+                        "name": "Outras atividades de ensino",
+                        "code": 26
+                    },
+                    {
+                        "name": "Atendimento hospitalar (hospital)",
+                        "code": 27
+                    },
+                    {
+                        "name": "Atendimento às urgências e emergências (pronto-socorro)",
+                        "code": 28
+                    },
+                    {
+                        "name": "Atenção ambulatorial (posto e centro de saúde)",
+                        "code": 29
+                    },
+                    {
+                        "name": "Serviços de complementação diagnóstica ou terapêutica",
+                        "code": 30
+                    },
+                    {
+                        "name": "Atividades de organizações religiosas",
+                        "code": 31
+                    },
+                    {
+                        "name": "Outras atividades relacionadas com atenção à saúde (instituto de pesquisa)",
+                        "code": 32
+                    },
+                    {
+                        "name": "Serviços sociais com alojamento",
+                        "code": 33
+                    },
+                    {
+                        "name": "Serviços sociais sem alojamento",
+                        "code": 34
+                    },
+                    {
+                        "name": "Limpeza urbana e atividades relacionadas",
+                        "code": 35
+                    },
+                    {
+                        "name": "Serviços veterinários",
+                        "code": 36
+                    },
+                    {
+                        "name": "Mista",
+                        "code": 98
+                    },
+                    {
+                        "name": "Outros",
+                        "code": 99
+                    },
+                    {
+                        "name": "A SER PREENCHIDO",
+                        "code": 9999
+                    }
+                ],
+                "mergePolicy": "esriMPTDefaultValue",
+                "splitPolicy": "esriSPTDuplicate"
+            }
+        },
+        {
+            "name": "divisaoativecon",
+            "type": "esriFieldTypeSmallInteger",
+            "alias": "Divisão da Atividade Econômica",
+            "domain": {
+                "type": "codedValue",
+                "name": "divisao_ativ_econ",
+                "description": "",
+                "codedValues": [
+                    {
+                        "name": "Agricultura, pecuário e serviços relacionados",
+                        "code": 1
+                    },
+                    {
+                        "name": "Silvicultura, exploração e serviços relacionados",
+                        "code": 2
+                    },
+                    {
+                        "name": "Pesca, agricultura e serviços relacionados",
+                        "code": 5
+                    },
+                    {
+                        "name": "Extração de carvão mineral",
+                        "code": 10
+                    },
+                    {
+                        "name": "Extração de petróleo e serviços relacionados",
+                        "code": 11
+                    },
+                    {
+                        "name": "Extração de minerais metálicos",
+                        "code": 13
+                    },
+                    {
+                        "name": "Fabricação de produtos de minerais não metálicos",
+                        "code": 14
+                    },
+                    {
+                        "name": "Fabricação alimentícia e bebidas",
+                        "code": 15
+                    },
+                    {
+                        "name": "Fabricação de produtos do fumo",
+                        "code": 16
+                    },
+                    {
+                        "name": "Fabricação de produtos têxteis",
+                        "code": 17
+                    },
+                    {
+                        "name": "Confecção de artigos do vestuário e acessórios",
+                        "code": 18
+                    },
+                    {
+                        "name": "Preparação de couros e fabricação de artefatos de couro, artigos de viagens e calçados",
+                        "code": 19
+                    },
+                    {
+                        "name": "Fabricação de produtos de madeira e celulose",
+                        "code": 20
+                    },
+                    {
+                        "name": "Fabricação de celulose, papel e produtos de papel",
+                        "code": 21
+                    },
+                    {
+                        "name": "Edição, impressão e reprodução de gravações",
+                        "code": 22
+                    },
+                    {
+                        "name": "Fabricação de coque, refino de petróleo, elaboração de combustíveis nucleares e produção de álcool",
+                        "code": 23
+                    },
+                    {
+                        "name": "Fabricação de produtos químicos",
+                        "code": 24
+                    },
+                    {
+                        "name": "Fabricação de artigos de borracha e material plástico",
+                        "code": 25
+                    },
+                    {
+                        "name": "Metalurgia básica",
+                        "code": 27
+                    },
+                    {
+                        "name": "Fabricação de produtos de metal, exclusive máquinas e equipamentos",
+                        "code": 28
+                    },
+                    {
+                        "name": "Fabricação de máquinas e equipamentos",
+                        "code": 29
+                    },
+                    {
+                        "name": "Fabricação de máquinas de escritório e equipamentos de informática",
+                        "code": 30
+                    },
+                    {
+                        "name": "Fabricação de máquinas, aparelhos e materiais elétricos",
+                        "code": 31
+                    },
+                    {
+                        "name": "Fabricação de material eletrônico, e equipamentos de comunicações",
+                        "code": 32
+                    },
+                    {
+                        "name": "Fabricação de equipamentos de instrumentação médico-hospitalares, instrumentos de precisão e ópticos, equipamentos para automação industrial, cronômetro e relógios",
+                        "code": 33
+                    },
+                    {
+                        "name": "Fabricação e montagem de veículos automotores, reboques e carrocerias",
+                        "code": 34
+                    },
+                    {
+                        "name": "Fabricação de outros equipamentos de transporte",
+                        "code": 35
+                    },
+                    {
+                        "name": "Fabricação de móveis e indústrias diversas",
+                        "code": 36
+                    },
+                    {
+                        "name": "Reciclagem",
+                        "code": 37
+                    },
+                    {
+                        "name": "Construção",
+                        "code": 45
+                    },
+                    {
+                        "name": "Comércio e reparação de veiculos automotores e motocicletas e comércio a varejo de combustíveis",
+                        "code": 50
+                    },
+                    {
+                        "name": "Comércio por atacado e representantes comerciais e agentes do comércio",
+                        "code": 51
+                    },
+                    {
+                        "name": "Comércio varejista e reparação de objetos pessoais e domésticos",
+                        "code": 52
+                    },
+                    {
+                        "name": "Alojamento e alimentação",
+                        "code": 55
+                    },
+                    {
+                        "name": "Serviços prestados principalmente a empresas (organizações)",
+                        "code": 74
+                    },
+                    {
+                        "name": "Atividades recreativas",
+                        "code": 92
+                    },
+                    {
+                        "name": "Desconhecido",
+                        "code": 95
+                    },
+                    {
+                        "name": "Outros",
+                        "code": 99
+                    }
+                ],
+                "mergePolicy": "esriMPTDefaultValue",
+                "splitPolicy": "esriSPTDuplicate"
+            }
+        },
+        {
+            "name": "grupoativecon",
+            "type": "esriFieldTypeSmallInteger",
+            "alias": "Grupo da Atividade Econômica",
+            "domain": {
+                "type": "codedValue",
+                "name": "grupo_ativ_econ",
+                "description": "",
+                "codedValues": [
+                    {
+                        "name": "Administração do estado e da política econômica e social",
+                        "code": 6
+                    },
+                    {
+                        "name": "Serviços coletivos prestados pela administração",
+                        "code": 8
+                    },
+                    {
+                        "name": "Seguridade social",
+                        "code": 15
+                    },
+                    {
+                        "name": "Educação infantil e ensino fundamental",
+                        "code": 16
+                    },
+                    {
+                        "name": "Ensino médio",
+                        "code": 19
+                    },
+                    {
+                        "name": "Ensino superior",
+                        "code": 20
+                    },
+                    {
+                        "name": "Educação profissional e outras atividades de ensino",
+                        "code": 23
+                    },
+                    {
+                        "name": "Atividades de atenção à saúde",
+                        "code": 30
+                    },
+                    {
+                        "name": "Serviços veterinários",
+                        "code": 31
+                    },
+                    {
+                        "name": "Serviço social",
+                        "code": 32
+                    },
+                    {
+                        "name": "Desconhecido",
+                        "code": 95
+                    },
+                    {
+                        "name": "Misto",
+                        "code": 98
+                    },
+                    {
+                        "name": "Outros",
+                        "code": 99
+                    }
+                ],
+                "mergePolicy": "esriMPTDefaultValue",
+                "splitPolicy": "esriSPTDuplicate"
+            }
+        },
+        {
+            "name": "proprioadm",
+            "type": "esriFieldTypeInteger",
+            "alias": "Propriedade Administrativa",
+            "domain": {
+                "type": "codedValue",
+                "name": "booleano",
+                "description": "booleano",
+                "codedValues": [
+                    {
+                        "name": "Não",
+                        "code": 0
+                    },
+                    {
+                        "name": "Sim",
+                        "code": 1
+                    }
+                ],
+                "mergePolicy": "esriMPTDefaultValue",
+                "splitPolicy": "esriSPTDuplicate"
+            }
+        },
+        {
+            "name": "bairro",
+            "type": "esriFieldTypeString",
+            "alias": "Bairro",
+            "length": 80,
+            "domain": null
+        },
+        {
+            "name": "bloco",
+            "type": "esriFieldTypeString",
+            "alias": "Bloco",
+            "length": 80,
+            "domain": null
+        },
+        {
+            "name": "cep",
+            "type": "esriFieldTypeString",
+            "alias": "Cep",
+            "length": 80,
+            "domain": null
+        },
+        {
+            "name": "logradouro",
+            "type": "esriFieldTypeString",
+            "alias": "Logradouro",
+            "length": 200,
+            "domain": null
+        },
+        {
+            "name": "municipio",
+            "type": "esriFieldTypeString",
+            "alias": "Município",
+            "length": 80,
+            "domain": null
+        },
+        {
+            "name": "numerometrico",
+            "type": "esriFieldTypeInteger",
+            "alias": "Número Métrico",
+            "domain": null
+        },
+        {
+            "name": "numeropavimentos",
+            "type": "esriFieldTypeInteger",
+            "alias": "Número de Pavimentos",
+            "domain": null
+        },
+        {
+            "name": "numerosequencial",
+            "type": "esriFieldTypeInteger",
+            "alias": "Número Sequencial",
+            "domain": null
+        },
+        {
+            "name": "pais",
+            "type": "esriFieldTypeString",
+            "alias": "País",
+            "length": 80,
+            "domain": null
+        },
+        {
+            "name": "unidadefederacao",
+            "type": "esriFieldTypeString",
+            "alias": "UF",
+            "length": 2,
+            "domain": null
+        },
+        {
+            "name": "administracao_1",
+            "type": "esriFieldTypeSmallInteger",
+            "alias": "Administração_1",
+            "domain": {
+                "type": "codedValue",
+                "name": "administracao",
+                "description": "",
+                "codedValues": [
+                    {
+                        "name": "Desconhecida",
+                        "code": 0
+                    },
+                    {
+                        "name": "Federal",
+                        "code": 2
+                    },
+                    {
+                        "name": "Estadual/Distrital",
+                        "code": 3
+                    },
+                    {
+                        "name": "Municipal",
+                        "code": 4
+                    },
+                    {
+                        "name": "Concessionada",
+                        "code": 5
+                    },
+                    {
+                        "name": "Privada",
+                        "code": 6
+                    },
+                    {
+                        "name": "Não aplicável",
+                        "code": 97
+                    },
+                    {
+                        "name": "A SER PREENCHIDO",
+                        "code": 9999
+                    }
+                ],
+                "mergePolicy": "esriMPTDefaultValue",
+                "splitPolicy": "esriSPTDuplicate"
+            }
+        },
+        {
+            "name": "alturaaproximada",
+            "type": "esriFieldTypeDouble",
+            "alias": "Altura Aproximada",
+            "domain": null
+        },
+        {
+            "name": "cultura",
+            "type": "esriFieldTypeSmallInteger",
+            "alias": "Cultura",
+            "domain": {
+                "type": "codedValue",
+                "name": "auxiliar",
+                "description": "",
+                "codedValues": [
+                    {
+                        "name": "Desconhecido",
+                        "code": 0
+                    },
+                    {
+                        "name": "Sim",
+                        "code": 1
+                    },
+                    {
+                        "name": "Não",
+                        "code": 2
+                    },
+                    {
+                        "name": "A SER PREENCHIDO",
+                        "code": 9999
+                    }
+                ],
+                "mergePolicy": "esriMPTDefaultValue",
+                "splitPolicy": "esriSPTDuplicate"
+            }
+        },
+        {
+            "name": "geometriaaproximada",
+            "type": "esriFieldTypeInteger",
+            "alias": "Geometria Aproximada",
+            "domain": {
+                "type": "codedValue",
+                "name": "booleano",
+                "description": "booleano",
+                "codedValues": [
+                    {
+                        "name": "Não",
+                        "code": 0
+                    },
+                    {
+                        "name": "Sim",
+                        "code": 1
+                    }
+                ],
+                "mergePolicy": "esriMPTDefaultValue",
+                "splitPolicy": "esriSPTDuplicate"
+            }
+        },
+        {
+            "name": "matconstr",
+            "type": "esriFieldTypeSmallInteger",
+            "alias": "Material Construção",
+            "domain": {
+                "type": "codedValue",
+                "name": "mat_constr",
+                "description": "",
+                "codedValues": [
+                    {
+                        "name": "Desconhecido",
+                        "code": 0
+                    },
+                    {
+                        "name": "Alvenaria",
+                        "code": 1
+                    },
+                    {
+                        "name": "Concreto",
+                        "code": 2
+                    },
+                    {
+                        "name": "Metal",
+                        "code": 3
+                    },
+                    {
+                        "name": "Rocha",
+                        "code": 4
+                    },
+                    {
+                        "name": "Madeira",
+                        "code": 5
+                    },
+                    {
+                        "name": "Fibra",
+                        "code": 8
+                    },
+                    {
+                        "name": "Terra",
+                        "code": 23
+                    },
+                    {
+                        "name": "Não aplicável",
+                        "code": 97
+                    },
+                    {
+                        "name": "Outros",
+                        "code": 99
+                    },
+                    {
+                        "name": "A SER PREENCHIDO",
+                        "code": 9999
+                    }
+                ],
+                "mergePolicy": "esriMPTDefaultValue",
+                "splitPolicy": "esriSPTDuplicate"
+            }
+        },
+        {
+            "name": "nome",
+            "type": "esriFieldTypeString",
+            "alias": "Nome",
+            "length": 80,
+            "domain": null
+        },
+        {
+            "name": "operacional",
+            "type": "esriFieldTypeSmallInteger",
+            "alias": "Operacional",
+            "domain": {
+                "type": "codedValue",
+                "name": "auxiliar",
+                "description": "",
+                "codedValues": [
+                    {
+                        "name": "Desconhecido",
+                        "code": 0
+                    },
+                    {
+                        "name": "Sim",
+                        "code": 1
+                    },
+                    {
+                        "name": "Não",
+                        "code": 2
+                    },
+                    {
+                        "name": "A SER PREENCHIDO",
+                        "code": 9999
+                    }
+                ],
+                "mergePolicy": "esriMPTDefaultValue",
+                "splitPolicy": "esriSPTDuplicate"
+            }
+        },
+        {
+            "name": "situacaofisica",
+            "type": "esriFieldTypeSmallInteger",
+            "alias": "Situação Física",
+            "domain": {
+                "type": "codedValue",
+                "name": "situacao_fisica",
+                "description": "",
+                "codedValues": [
+                    {
+                        "name": "Desconhecida",
+                        "code": 0
+                    },
+                    {
+                        "name": "Abandonada",
+                        "code": 1
+                    },
+                    {
+                        "name": "Destruída",
+                        "code": 2
+                    },
+                    {
+                        "name": "Em construção",
+                        "code": 3
+                    },
+                    {
+                        "name": "Planejada",
+                        "code": 4
+                    },
+                    {
+                        "name": "Construída",
+                        "code": 5
+                    },
+                    {
+                        "name": "Construída, mas em obras",
+                        "code": 6
+                    },
+                    {
+                        "name": "Não aplicável",
+                        "code": 97
+                    },
+                    {
+                        "name": "A SER PREENCHIDO",
+                        "code": 9999
+                    }
+                ],
+                "mergePolicy": "esriMPTDefaultValue",
+                "splitPolicy": "esriSPTDuplicate"
+            }
+        },
+        {
+            "name": "turistica",
+            "type": "esriFieldTypeInteger",
+            "alias": "Turística",
+            "domain": {
+                "type": "codedValue",
+                "name": "booleano",
+                "description": "booleano",
+                "codedValues": [
+                    {
+                        "name": "Não",
+                        "code": 0
+                    },
+                    {
+                        "name": "Sim",
+                        "code": 1
+                    }
+                ],
+                "mergePolicy": "esriMPTDefaultValue",
+                "splitPolicy": "esriSPTDuplicate"
+            }
+        },
+        {
+            "name": "id_complexo_desportivo",
+            "type": "esriFieldTypeInteger",
+            "alias": "Identificação Complexo Desportivo",
+            "domain": null
+        },
+        {
+            "name": "id_complexo_desportivo_lazer",
+            "type": "esriFieldTypeInteger",
+            "alias": "Identificação Complexo Desportivo Lazer",
+            "domain": null
+        },
+        {
+            "name": "id_complexo_recreativo",
+            "type": "esriFieldTypeInteger",
+            "alias": "Identificação Complexo Recreativo",
+            "domain": null
+        },
+        {
+            "name": "tipoedifagropec",
+            "type": "esriFieldTypeSmallInteger",
+            "alias": "Tipo de Edificação Agropecuária",
+            "domain": {
+                "type": "codedValue",
+                "name": "tipo_edif_agropec",
+                "description": "",
+                "codedValues": [
+                    {
+                        "name": "Desconhecido",
+                        "code": 0
+                    },
+                    {
+                        "name": "Administração",
+                        "code": 4
+                    },
+                    {
+                        "name": "Sede operacional de fazenda",
+                        "code": 12
+                    },
+                    {
+                        "name": "Aviário",
+                        "code": 13
+                    },
+                    {
+                        "name": "Apiário",
+                        "code": 14
+                    },
+                    {
+                        "name": "Viveiro de plantas",
+                        "code": 15
+                    },
+                    {
+                        "name": "Viveiro para aquicultura",
+                        "code": 16
+                    },
+                    {
+                        "name": "Pocilga",
+                        "code": 17
+                    },
+                    {
+                        "name": "Curral",
+                        "code": 18
+                    },
+                    {
+                        "name": "Outros",
+                        "code": 99
+                    },
+                    {
+                        "name": "A SER PREENCHIDO",
+                        "code": 9999
+                    }
+                ],
+                "mergePolicy": "esriMPTDefaultValue",
+                "splitPolicy": "esriSPTDuplicate"
+            }
+        },
+        {
+            "name": "finalidade",
+            "type": "esriFieldTypeSmallInteger",
+            "alias": "Finalidade",
+            "domain": {
+                "type": "codedValue",
+                "name": "finalidade",
+                "description": "",
+                "codedValues": [
+                    {
+                        "name": "Desconhecida",
+                        "code": 0
+                    },
+                    {
+                        "name": "Comercial",
+                        "code": 1
+                    },
+                    {
+                        "name": "Residencial",
+                        "code": 2
+                    },
+                    {
+                        "name": "Serviço",
+                        "code": 4
+                    },
+                    {
+                        "name": "Outros",
+                        "code": 99
+                    },
+                    {
+                        "name": "A SER PREENCHIDO",
+                        "code": 9999
+                    }
+                ],
+                "mergePolicy": "esriMPTDefaultValue",
+                "splitPolicy": "esriSPTDuplicate"
+            }
+        },
+        {
+            "name": "id_estrut_transporte",
+            "type": "esriFieldTypeInteger",
+            "alias": "Identificação Estrutura Transporte",
+            "domain": null
+        },
+        {
+            "name": "tipoedifcomercserv",
+            "type": "esriFieldTypeSmallInteger",
+            "alias": "Tipo Edificação Comércio/Serviço",
+            "domain": {
+                "type": "codedValue",
+                "name": "tipo_edif_comerc_serv",
+                "description": "",
+                "codedValues": [
+                    {
+                        "name": "Desconhecido",
+                        "code": 0
+                    },
+                    {
+                        "name": "Centro comercial",
+                        "code": 3
+                    },
+                    {
+                        "name": "Mercado público",
+                        "code": 4
+                    },
+                    {
+                        "name": "Centro de convenções",
+                        "code": 5
+                    },
+                    {
+                        "name": "Banca de jornal",
+                        "code": 6
+                    },
+                    {
+                        "name": "Hotel",
+                        "code": 7
+                    },
+                    {
+                        "name": "Restaurante",
+                        "code": 8
+                    },
+                    {
+                        "name": "Comércio de carnes",
+                        "code": 9
+                    },
+                    {
+                        "name": "Farmácia",
+                        "code": 10
+                    },
+                    {
+                        "name": "Banco",
+                        "code": 11
+                    },
+                    {
+                        "name": "Loja de conveniência",
+                        "code": 12
+                    },
+                    {
+                        "name": "Loja de materiais de construção e/ou ferragem",
+                        "code": 13
+                    },
+                    {
+                        "name": "Loja de móveis",
+                        "code": 14
+                    },
+                    {
+                        "name": "Loja de roupas e/ou tecidos",
+                        "code": 15
+                    },
+                    {
+                        "name": "Motel",
+                        "code": 16
+                    },
+                    {
+                        "name": "Oficina mecânica",
+                        "code": 17
+                    },
+                    {
+                        "name": "Outros comércios",
+                        "code": 18
+                    },
+                    {
+                        "name": "Posto de combustível",
+                        "code": 19
+                    },
+                    {
+                        "name": "Pousada",
+                        "code": 20
+                    },
+                    {
+                        "name": "Quiosque",
+                        "code": 21
+                    },
+                    {
+                        "name": "Quitanda",
+                        "code": 22
+                    },
+                    {
+                        "name": "Supermercado",
+                        "code": 23
+                    },
+                    {
+                        "name": "Venda de veículos",
+                        "code": 24
+                    },
+                    {
+                        "name": "Administração",
+                        "code": 25
+                    },
+                    {
+                        "name": "Centro de exposições",
+                        "code": 26
+                    },
+                    {
+                        "name": "Outros serviços",
+                        "code": 99
+                    },
+                    {
+                        "name": "A SER PREENCHIDO",
+                        "code": 9999
+                    }
+                ],
+                "mergePolicy": "esriMPTDefaultValue",
+                "splitPolicy": "esriSPTDuplicate"
+            }
+        },
+        {
+            "name": "tipologia_restituicao",
+            "type": "esriFieldTypeString",
+            "alias": "Tipologia Restituição",
+            "length": 155,
+            "domain": null
+        },
+        {
+            "name": "id_complexo_comunicacao",
+            "type": "esriFieldTypeInteger",
+            "alias": "Identificação Complexo Comunicação",
+            "domain": null
+        },
+        {
+            "name": "modalidade",
+            "type": "esriFieldTypeSmallInteger",
+            "alias": "Modalidade",
+            "domain": {
+                "type": "codedValue",
+                "name": "modalidade",
+                "description": "",
+                "codedValues": [
+                    {
+                        "name": "Desconhecida",
+                        "code": 0
+                    },
+                    {
+                        "name": "Radiocomunicação",
+                        "code": 1
+                    },
+                    {
+                        "name": "Imagem",
+                        "code": 2
+                    },
+                    {
+                        "name": "Telefonia",
+                        "code": 3
+                    },
+                    {
+                        "name": "Dados",
+                        "code": 4
+                    },
+                    {
+                        "name": "Som",
+                        "code": 5
+                    },
+                    {
+                        "name": "Outros",
+                        "code": 99
+                    },
+                    {
+                        "name": "A SER PREENCHIDO",
+                        "code": 9999
+                    }
+                ],
+                "mergePolicy": "esriMPTDefaultValue",
+                "splitPolicy": "esriSPTDuplicate"
+            }
+        },
+        {
+            "name": "tipoedifcomunic",
+            "type": "esriFieldTypeSmallInteger",
+            "alias": "Tipo Edificação Comunicação",
+            "domain": {
+                "type": "codedValue",
+                "name": "tipo_edif_comunic",
+                "description": "",
+                "codedValues": [
+                    {
+                        "name": "Desconhecido",
+                        "code": 0
+                    },
+                    {
+                        "name": "Centro de operações",
+                        "code": 1
+                    },
+                    {
+                        "name": "Central comutação e transmissão",
+                        "code": 2
+                    },
+                    {
+                        "name": "Estação rádio base",
+                        "code": 3
+                    },
+                    {
+                        "name": "Estação repetidora",
+                        "code": 4
+                    },
+                    {
+                        "name": "Administração",
+                        "code": 5
+                    },
+                    {
+                        "name": "A SER PREENCHIDO",
+                        "code": 9999
+                    }
+                ],
+                "mergePolicy": "esriMPTDefaultValue",
+                "splitPolicy": "esriSPTDuplicate"
+            }
+        },
+        {
+            "name": "concessionaria",
+            "type": "esriFieldTypeString",
+            "alias": "Concessionária",
+            "length": 80,
+            "domain": null
+        },
+        {
+            "name": "id_complexo_aeroportuario",
+            "type": "esriFieldTypeInteger",
+            "alias": "Identificação Complexo Aeroportuário",
+            "domain": null
+        },
+        {
+            "name": "jurisdicao",
+            "type": "esriFieldTypeSmallInteger",
+            "alias": "Jurisdição",
+            "domain": {
+                "type": "codedValue",
+                "name": "jurisdicao",
+                "description": "",
+                "codedValues": [
+                    {
+                        "name": "Desconhecida",
+                        "code": 0
+                    },
+                    {
+                        "name": "Federal",
+                        "code": 1
+                    },
+                    {
+                        "name": "Estadual/Distrital",
+                        "code": 2
+                    },
+                    {
+                        "name": "Municipal",
+                        "code": 3
+                    },
+                    {
+                        "name": "Internacional",
+                        "code": 4
+                    },
+                    {
+                        "name": "Propriedade particular",
+                        "code": 8
+                    },
+                    {
+                        "name": "A SER PREENCHIDO",
+                        "code": 9999
+                    }
+                ],
+                "mergePolicy": "esriMPTDefaultValue",
+                "splitPolicy": "esriSPTDuplicate"
+            }
+        },
+        {
+            "name": "tipoedifaero",
+            "type": "esriFieldTypeSmallInteger",
+            "alias": "Tipo Edificação Aero",
+            "domain": {
+                "type": "codedValue",
+                "name": "tipo_edif_aero",
+                "description": "",
+                "codedValues": [
+                    {
+                        "name": "Desconhecido",
+                        "code": 0
+                    },
+                    {
+                        "name": "Administração",
+                        "code": 15
+                    },
+                    {
+                        "name": "Terminal de passageiros",
+                        "code": 26
+                    },
+                    {
+                        "name": "Terminal de cargas",
+                        "code": 27
+                    },
+                    {
+                        "name": "Torre de controle",
+                        "code": 28
+                    },
+                    {
+                        "name": "Hangar",
+                        "code": 29
+                    },
+                    {
+                        "name": "Serviço de combate a incêndios (SCI)",
+                        "code": 30
+                    },
+                    {
+                        "name": "Outros",
+                        "code": 99
+                    },
+                    {
+                        "name": "A SER PREENCHIDO",
+                        "code": 9999
+                    }
+                ],
+                "mergePolicy": "esriMPTDefaultValue",
+                "splitPolicy": "esriSPTDuplicate"
+            }
+        },
+        {
+            "name": "id_est_med_fen",
+            "type": "esriFieldTypeInteger",
+            "alias": "Identificação Estação Medição Fenômenos",
+            "domain": null
+        },
+        {
+            "name": "tipoediflazer",
+            "type": "esriFieldTypeSmallInteger",
+            "alias": "Tipo Edificação Lazer",
+            "domain": {
+                "type": "codedValue",
+                "name": "tipo_edif_lazer",
+                "description": "",
+                "codedValues": [
+                    {
+                        "name": "Desconhecido",
+                        "code": 0
+                    },
+                    {
+                        "name": "Estádio",
+                        "code": 1
+                    },
+                    {
+                        "name": "Ginásio",
+                        "code": 2
+                    },
+                    {
+                        "name": "Museu",
+                        "code": 3
+                    },
+                    {
+                        "name": "Teatro",
+                        "code": 4
+                    },
+                    {
+                        "name": "Anfiteatro",
+                        "code": 5
+                    },
+                    {
+                        "name": "Espaço de exibição de filmes",
+                        "code": 6
+                    },
+                    {
+                        "name": "Centro cultural",
+                        "code": 7
+                    },
+                    {
+                        "name": "Plataforma de pesca",
+                        "code": 8
+                    },
+                    {
+                        "name": "Arquivo",
+                        "code": 9
+                    },
+                    {
+                        "name": "Biblioteca",
+                        "code": 10
+                    },
+                    {
+                        "name": "Centro de documentação",
+                        "code": 11
+                    },
+                    {
+                        "name": "Circo",
+                        "code": 12
+                    },
+                    {
+                        "name": "Concha acústica",
+                        "code": 13
+                    },
+                    {
+                        "name": "Conservatório",
+                        "code": 14
+                    },
+                    {
+                        "name": "Coreto ou tribuna",
+                        "code": 15
+                    },
+                    {
+                        "name": "Equipamentos culturais diversos",
+                        "code": 17
+                    },
+                    {
+                        "name": "Espaço de eventos e/ou cultural",
+                        "code": 18
+                    },
+                    {
+                        "name": "Galeria",
+                        "code": 19
+                    },
+                    {
+                        "name": "Quiosque",
+                        "code": 21
+                    },
+                    {
+                        "name": "Administração",
+                        "code": 22
+                    },
+                    {
+                        "name": "Outros",
+                        "code": 99
+                    },
+                    {
+                        "name": "A SER PREENCHIDO",
+                        "code": 9999
+                    }
+                ],
+                "mergePolicy": "esriMPTDefaultValue",
+                "splitPolicy": "esriSPTDuplicate"
+            }
+        },
+        {
+            "name": "id_complexo_portuario",
+            "type": "esriFieldTypeInteger",
+            "alias": "Identificação Complexo Portuário",
+            "domain": null
+        },
+        {
+            "name": "tipoedifport",
+            "type": "esriFieldTypeSmallInteger",
+            "alias": "Tipo Edificação Portuária",
+            "domain": {
+                "type": "codedValue",
+                "name": "tipo_edif_port",
+                "description": "",
+                "codedValues": [
+                    {
+                        "name": "Desconhecido",
+                        "code": 0
+                    },
+                    {
+                        "name": "Administração",
+                        "code": 15
+                    },
+                    {
+                        "name": "Terminal de passageiros",
+                        "code": 26
+                    },
+                    {
+                        "name": "Terminal de cargas",
+                        "code": 27
+                    },
+                    {
+                        "name": "Armazém",
+                        "code": 32
+                    },
+                    {
+                        "name": "Estaleiro",
+                        "code": 33
+                    },
+                    {
+                        "name": "Dique de estaleiro",
+                        "code": 34
+                    },
+                    {
+                        "name": "Rampa transportadora",
+                        "code": 35
+                    },
+                    {
+                        "name": "Carreira",
+                        "code": 36
+                    },
+                    {
+                        "name": "Terminal de uso privativo",
+                        "code": 37
+                    },
+                    {
+                        "name": "Outros",
+                        "code": 99
+                    },
+                    {
+                        "name": "A SER PREENCHIDO",
+                        "code": 9999
+                    }
+                ],
+                "mergePolicy": "esriMPTDefaultValue",
+                "splitPolicy": "esriSPTDuplicate"
+            }
+        },
+        {
+            "name": "ovgd",
+            "type": "esriFieldTypeSmallInteger",
+            "alias": "OVGD",
+            "domain": {
+                "type": "codedValue",
+                "name": "auxiliar",
+                "description": "",
+                "codedValues": [
+                    {
+                        "name": "Desconhecido",
+                        "code": 0
+                    },
+                    {
+                        "name": "Sim",
+                        "code": 1
+                    },
+                    {
+                        "name": "Não",
+                        "code": 2
+                    },
+                    {
+                        "name": "A SER PREENCHIDO",
+                        "code": 9999
+                    }
+                ],
+                "mergePolicy": "esriMPTDefaultValue",
+                "splitPolicy": "esriSPTDuplicate"
+            }
+        },
+        {
+            "name": "tipoedifturist",
+            "type": "esriFieldTypeSmallInteger",
+            "alias": "Tipo Ediifcação Turística",
+            "domain": {
+                "type": "codedValue",
+                "name": "tipo_edif_turist",
+                "description": "",
+                "codedValues": [
+                    {
+                        "name": "Desconhecido",
+                        "code": 0
+                    },
+                    {
+                        "name": "Cruzeiro",
+                        "code": 9
+                    },
+                    {
+                        "name": "Estátua",
+                        "code": 10
+                    },
+                    {
+                        "name": "Mirante",
+                        "code": 11
+                    },
+                    {
+                        "name": "Monumento",
+                        "code": 12
+                    },
+                    {
+                        "name": "Panteão",
+                        "code": 13
+                    },
+                    {
+                        "name": "Chafariz",
+                        "code": 14
+                    },
+                    {
+                        "name": "Chaminé",
+                        "code": 15
+                    },
+                    {
+                        "name": "Escultura",
+                        "code": 16
+                    },
+                    {
+                        "name": "Obelisco",
+                        "code": 17
+                    },
+                    {
+                        "name": "Torre",
+                        "code": 18
+                    },
+                    {
+                        "name": "Administração",
+                        "code": 19
+                    },
+                    {
+                        "name": "Outros",
+                        "code": 99
+                    },
+                    {
+                        "name": "A SER PREENCHIDO",
+                        "code": 9999
+                    }
+                ],
+                "mergePolicy": "esriMPTDefaultValue",
+                "splitPolicy": "esriSPTDuplicate"
+            }
+        },
+        {
+            "name": "tombada",
+            "type": "esriFieldTypeInteger",
+            "alias": "Tombada",
+            "domain": {
+                "type": "codedValue",
+                "name": "booleano",
+                "description": "booleano",
+                "codedValues": [
+                    {
+                        "name": "Não",
+                        "code": 0
+                    },
+                    {
+                        "name": "Sim",
+                        "code": 1
+                    }
+                ],
+                "mergePolicy": "esriMPTDefaultValue",
+                "splitPolicy": "esriSPTDuplicate"
+            }
+        },
+        {
+            "name": "id_complex_gerad_energ_elet",
+            "type": "esriFieldTypeInteger",
+            "alias": "Identificação Complexo Gerador de Energia",
+            "domain": null
+        },
+        {
+            "name": "id_sub_trans_dist_ener_elet",
+            "type": "esriFieldTypeInteger",
+            "alias": "Identificação Subestação Transmissão Distribuição Energia Elétrica",
+            "domain": null
+        },
+        {
+            "name": "tipoedifenergia",
+            "type": "esriFieldTypeSmallInteger",
+            "alias": "Tipo Edificação Energia",
+            "domain": {
+                "type": "codedValue",
+                "name": "tipo_edif_energia",
+                "description": "",
+                "codedValues": [
+                    {
+                        "name": "Desconhecido",
+                        "code": 0
+                    },
+                    {
+                        "name": "Administração",
+                        "code": 1
+                    },
+                    {
+                        "name": "Oficinas",
+                        "code": 2
+                    },
+                    {
+                        "name": "Segurança",
+                        "code": 3
+                    },
+                    {
+                        "name": "Depósito",
+                        "code": 4
+                    },
+                    {
+                        "name": "Chaminé",
+                        "code": 5
+                    },
+                    {
+                        "name": "Outros",
+                        "code": 99
+                    },
+                    {
+                        "name": "A SER PREENCHIDO",
+                        "code": 9999
+                    }
+                ],
+                "mergePolicy": "esriMPTDefaultValue",
+                "splitPolicy": "esriSPTDuplicate"
+            }
+        },
+        {
+            "name": "chamine",
+            "type": "esriFieldTypeSmallInteger",
+            "alias": "Chaminé",
+            "domain": {
+                "type": "codedValue",
+                "name": "auxiliar",
+                "description": "",
+                "codedValues": [
+                    {
+                        "name": "Desconhecido",
+                        "code": 0
+                    },
+                    {
+                        "name": "Sim",
+                        "code": 1
+                    },
+                    {
+                        "name": "Não",
+                        "code": 2
+                    },
+                    {
+                        "name": "A SER PREENCHIDO",
+                        "code": 9999
+                    }
+                ],
+                "mergePolicy": "esriMPTDefaultValue",
+                "splitPolicy": "esriSPTDuplicate"
+            }
+        },
+        {
+            "name": "tipoedifmetroferrov",
+            "type": "esriFieldTypeSmallInteger",
+            "alias": "Tipo Edificação Ferroviaria",
+            "domain": {
+                "type": "codedValue",
+                "name": "tipo_edif_metro_ferrov",
+                "description": "",
+                "codedValues": [
+                    {
+                        "name": "Desconhecido",
+                        "code": 0
+                    },
+                    {
+                        "name": "Administração",
+                        "code": 15
+                    },
+                    {
+                        "name": "Estação ferroviária de passageiros",
+                        "code": 16
+                    },
+                    {
+                        "name": "Estação metroviária",
+                        "code": 17
+                    },
+                    {
+                        "name": "Terminal ferroviário de cargas",
+                        "code": 18
+                    },
+                    {
+                        "name": "Terminal ferroviário de passageiros e cargas",
+                        "code": 19
+                    },
+                    {
+                        "name": "Oficina de manutenção",
+                        "code": 20
+                    },
+                    {
+                        "name": "Outros",
+                        "code": 99
+                    },
+                    {
+                        "name": "A SER PREENCHIDO",
+                        "code": 9999
+                    }
+                ],
+                "mergePolicy": "esriMPTDefaultValue",
+                "splitPolicy": "esriSPTDuplicate"
+            }
+        },
+        {
+            "name": "tipoedifpubcivil",
+            "type": "esriFieldTypeSmallInteger",
+            "alias": "Tipo Edificação Pública Civil",
+            "domain": {
+                "type": "codedValue",
+                "name": "tipo_org_civil",
+                "description": "",
+                "codedValues": [
+                    {
+                        "name": "Desconhecido",
+                        "code": 0
+                    },
+                    {
+                        "name": "Policial",
+                        "code": 1
+                    },
+                    {
+                        "name": "Prisional",
+                        "code": 2
+                    },
+                    {
+                        "name": "Cartorial",
+                        "code": 3
+                    },
+                    {
+                        "name": "Gestão",
+                        "code": 4
+                    },
+                    {
+                        "name": "Eleitoral",
+                        "code": 5
+                    },
+                    {
+                        "name": "Produção e/ou pesquisa",
+                        "code": 6
+                    },
+                    {
+                        "name": "Seguridade social",
+                        "code": 7
+                    },
+                    {
+                        "name": "Câmara municipal",
+                        "code": 8
+                    },
+                    {
+                        "name": "Assembleia legislativa",
+                        "code": 9
+                    },
+                    {
+                        "name": "Autarquia",
+                        "code": 10
+                    },
+                    {
+                        "name": "Delegacia de polícia civil",
+                        "code": 11
+                    },
+                    {
+                        "name": "Educação",
+                        "code": 12
+                    },
+                    {
+                        "name": "Fórum",
+                        "code": 13
+                    },
+                    {
+                        "name": "Fundação",
+                        "code": 14
+                    },
+                    {
+                        "name": "Procuradoria",
+                        "code": 15
+                    },
+                    {
+                        "name": "Secretaria",
+                        "code": 16
+                    },
+                    {
+                        "name": "Prefeitura",
+                        "code": 22
+                    },
+                    {
+                        "name": "Outros",
+                        "code": 99
+                    },
+                    {
+                        "name": "A SER PREENCHIDO",
+                        "code": 9999
+                    }
+                ],
+                "mergePolicy": "esriMPTDefaultValue",
+                "splitPolicy": "esriSPTDuplicate"
+            }
+        },
+        {
+            "name": "tipousoedif",
+            "type": "esriFieldTypeSmallInteger",
+            "alias": "Tipo Uso Edificação ",
+            "domain": {
+                "type": "codedValue",
+                "name": "tipo_uso_edif",
+                "description": "",
+                "codedValues": [
+                    {
+                        "name": "Desconhecido",
+                        "code": 0
+                    },
+                    {
+                        "name": "Próprio nacional",
+                        "code": 1
+                    },
+                    {
+                        "name": "Uso da União",
+                        "code": 2
+                    },
+                    {
+                        "name": "Uso do município",
+                        "code": 5
+                    },
+                    {
+                        "name": "Uso da UF",
+                        "code": 6
+                    },
+                    {
+                        "name": "Outros",
+                        "code": 99
+                    },
+                    {
+                        "name": "A SER PREENCHIDO",
+                        "code": 9999
+                    }
+                ],
+                "mergePolicy": "esriMPTDefaultValue",
+                "splitPolicy": "esriSPTDuplicate"
+            }
+        },
+        {
+            "name": "tipoinstalmilitar",
+            "type": "esriFieldTypeSmallInteger",
+            "alias": "Tipo Instalação Militar",
+            "domain": {
+                "type": "codedValue",
+                "name": "tipo_instal_militar",
+                "description": "",
+                "codedValues": [
+                    {
+                        "name": "Desconhecido",
+                        "code": 0
+                    },
+                    {
+                        "name": "Aquartelamento",
+                        "code": 5
+                    },
+                    {
+                        "name": "Campo de instrução",
+                        "code": 6
+                    },
+                    {
+                        "name": "Campo de tiro",
+                        "code": 7
+                    },
+                    {
+                        "name": "Base aérea",
+                        "code": 8
+                    },
+                    {
+                        "name": "Distrito naval",
+                        "code": 9
+                    },
+                    {
+                        "name": "Hotel de trânsito",
+                        "code": 10
+                    },
+                    {
+                        "name": "Delegacia de serviço militar",
+                        "code": 11
+                    },
+                    {
+                        "name": "Quartel general",
+                        "code": 12
+                    },
+                    {
+                        "name": "Posto de vigilância",
+                        "code": 13
+                    },
+                    {
+                        "name": "Posto de policiamento urbano",
+                        "code": 14
+                    },
+                    {
+                        "name": "Posto de policiamento rodoviário",
+                        "code": 15
+                    },
+                    {
+                        "name": "Capitania dos portos",
+                        "code": 16
+                    },
+                    {
+                        "name": "Base naval",
+                        "code": 17
+                    },
+                    {
+                        "name": "Outros",
+                        "code": 99
+                    },
+                    {
+                        "name": "A SER PREENCHIDO",
+                        "code": 9999
+                    }
+                ],
+                "mergePolicy": "esriMPTDefaultValue",
+                "splitPolicy": "esriSPTDuplicate"
+            }
+        },
+        {
+            "name": "crista",
+            "type": "esriFieldTypeInteger",
+            "alias": "Crista",
+            "domain": {
+                "type": "codedValue",
+                "name": "booleano",
+                "description": "booleano",
+                "codedValues": [
+                    {
+                        "name": "Não",
+                        "code": 0
+                    },
+                    {
+                        "name": "Sim",
+                        "code": 1
+                    }
+                ],
+                "mergePolicy": "esriMPTDefaultValue",
+                "splitPolicy": "esriSPTDuplicate"
+            }
+        },
+        {
+            "name": "ensino",
+            "type": "esriFieldTypeInteger",
+            "alias": "Ensino",
+            "domain": {
+                "type": "codedValue",
+                "name": "booleano",
+                "description": "booleano",
+                "codedValues": [
+                    {
+                        "name": "Não",
+                        "code": 0
+                    },
+                    {
+                        "name": "Sim",
+                        "code": 1
+                    }
+                ],
+                "mergePolicy": "esriMPTDefaultValue",
+                "splitPolicy": "esriSPTDuplicate"
+            }
+        },
+        {
+            "name": "religiao",
+            "type": "esriFieldTypeString",
+            "alias": "Religião",
+            "length": 80,
+            "domain": null
+        },
+        {
+            "name": "tipoedifrelig",
+            "type": "esriFieldTypeSmallInteger",
+            "alias": "Tipo Edificação Religiosa",
+            "domain": {
+                "type": "codedValue",
+                "name": "tipo_edif_relig",
+                "description": "",
+                "codedValues": [
+                    {
+                        "name": "Desconhecido",
+                        "code": 0
+                    },
+                    {
+                        "name": "Igreja",
+                        "code": 1
+                    },
+                    {
+                        "name": "Templo",
+                        "code": 2
+                    },
+                    {
+                        "name": "Centro",
+                        "code": 3
+                    },
+                    {
+                        "name": "Mosteiro",
+                        "code": 4
+                    },
+                    {
+                        "name": "Convento",
+                        "code": 5
+                    },
+                    {
+                        "name": "Mesquita",
+                        "code": 6
+                    },
+                    {
+                        "name": "Sinagoga",
+                        "code": 7
+                    },
+                    {
+                        "name": "Terreiro",
+                        "code": 8
+                    },
+                    {
+                        "name": "Capela mortuária",
+                        "code": 9
+                    },
+                    {
+                        "name": "Administração",
+                        "code": 10
+                    },
+                    {
+                        "name": "Outros",
+                        "code": 99
+                    },
+                    {
+                        "name": "A SER PREENCHIDO",
+                        "code": 9999
+                    }
+                ],
+                "mergePolicy": "esriMPTDefaultValue",
+                "splitPolicy": "esriSPTDuplicate"
+            }
+        },
+        {
+            "name": "tiporepdiplomatica",
+            "type": "esriFieldTypeSmallInteger",
+            "alias": "Tipo República Diplomática",
+            "domain": {
+                "type": "codedValue",
+                "name": "tipo_rep_diplomatica",
+                "description": "",
+                "codedValues": [
+                    {
+                        "name": "Embaixada",
+                        "code": 2
+                    },
+                    {
+                        "name": "Consulado",
+                        "code": 3
+                    },
+                    {
+                        "name": "A SER PREENCHIDO",
+                        "code": 9999
+                    }
+                ],
+                "mergePolicy": "esriMPTDefaultValue",
+                "splitPolicy": "esriSPTDuplicate"
+            }
+        },
+        {
+            "name": "tipoedifrod",
+            "type": "esriFieldTypeSmallInteger",
+            "alias": "Tipo Edificação Rodoviária",
+            "domain": {
+                "type": "codedValue",
+                "name": "tipo_edif_rod",
+                "description": "",
+                "codedValues": [
+                    {
+                        "name": "Desconhecido",
+                        "code": 0
+                    },
+                    {
+                        "name": "Terminal interestadual",
+                        "code": 8
+                    },
+                    {
+                        "name": "Terminal urbano",
+                        "code": 9
+                    },
+                    {
+                        "name": "Parada interestadual",
+                        "code": 10
+                    },
+                    {
+                        "name": "Posto de pedágio",
+                        "code": 13
+                    },
+                    {
+                        "name": "Administração",
+                        "code": 15
+                    },
+                    {
+                        "name": "Garagem",
+                        "code": 20
+                    },
+                    {
+                        "name": "Outros",
+                        "code": 99
+                    },
+                    {
+                        "name": "A SER PREENCHIDO",
+                        "code": 9999
+                    }
+                ],
+                "mergePolicy": "esriMPTDefaultValue",
+                "splitPolicy": "esriSPTDuplicate"
+            }
+        },
+        {
+            "name": "tipoedifsaneam",
+            "type": "esriFieldTypeSmallInteger",
+            "alias": "Tipo Edificação Saneamento",
+            "domain": {
+                "type": "codedValue",
+                "name": "tipo_edif_saneam",
+                "description": "",
+                "codedValues": [
+                    {
+                        "name": "Desconhecido",
+                        "code": 0
+                    },
+                    {
+                        "name": "Recalque",
+                        "code": 3
+                    },
+                    {
+                        "name": "Tratamento de esgoto",
+                        "code": 5
+                    },
+                    {
+                        "name": "Usina de reciclagem",
+                        "code": 6
+                    },
+                    {
+                        "name": "Incinerador",
+                        "code": 7
+                    },
+                    {
+                        "name": "Administração",
+                        "code": 8
+                    },
+                    {
+                        "name": "Outros",
+                        "code": 99
+                    },
+                    {
+                        "name": "A SER PREENCHIDO",
+                        "code": 9999
+                    }
+                ],
+                "mergePolicy": "esriMPTDefaultValue",
+                "splitPolicy": "esriSPTDuplicate"
+            }
+        },
+        {
+            "name": "nivelatencao",
+            "type": "esriFieldTypeSmallInteger",
+            "alias": "Nível Atenção",
+            "domain": {
+                "type": "codedValue",
+                "name": "nivel_atencao",
+                "description": "",
+                "codedValues": [
+                    {
+                        "name": "Primário",
+                        "code": 5
+                    },
+                    {
+                        "name": "Secundário",
+                        "code": 6
+                    },
+                    {
+                        "name": "Terciário",
+                        "code": 7
+                    },
+                    {
+                        "name": "A SER PREENCHIDO",
+                        "code": 9999
+                    }
+                ],
+                "mergePolicy": "esriMPTDefaultValue",
+                "splitPolicy": "esriSPTDuplicate"
+            }
+        },
+        {
+            "name": "tipopostofisc",
+            "type": "esriFieldTypeSmallInteger",
+            "alias": "Tipo Posto Fiscal",
+            "domain": {
+                "type": "codedValue",
+                "name": "tipo_posto_fisc",
+                "description": "",
+                "codedValues": [
+                    {
+                        "name": "Desconhecido",
+                        "code": 0
+                    },
+                    {
+                        "name": "Tributação",
+                        "code": 10
+                    },
+                    {
+                        "name": "Fiscalização sanitária",
+                        "code": 12
+                    },
+                    {
+                        "name": "Posto de pesagem",
+                        "code": 13
+                    },
+                    {
+                        "name": "Misto",
+                        "code": 98
+                    },
+                    {
+                        "name": "Outros",
+                        "code": 99
+                    },
+                    {
+                        "name": "A SER PREENCHIDO",
+                        "code": 9999
+                    }
+                ],
+                "mergePolicy": "esriMPTDefaultValue",
+                "splitPolicy": "esriSPTDuplicate"
+            }
+        },
+        {
+            "name": "id_complexo_saneamento",
+            "type": "esriFieldTypeInteger",
+            "alias": "Identificação Complexo Saneamento",
+            "domain": null
+        },
+        {
+            "name": "tipoedifsaneament",
+            "type": "esriFieldTypeSmallInteger",
+            "alias": "Tipo Edificação Saneamento",
+            "domain": {
+                "type": "codedValue",
+                "name": "tipo_edif_saneam",
+                "description": "",
+                "codedValues": [
+                    {
+                        "name": "Desconhecido",
+                        "code": 0
+                    },
+                    {
+                        "name": "Recalque",
+                        "code": 3
+                    },
+                    {
+                        "name": "Tratamento de esgoto",
+                        "code": 5
+                    },
+                    {
+                        "name": "Usina de reciclagem",
+                        "code": 6
+                    },
+                    {
+                        "name": "Incinerador",
+                        "code": 7
+                    },
+                    {
+                        "name": "Administração",
+                        "code": 8
+                    },
+                    {
+                        "name": "Outros",
+                        "code": 99
+                    },
+                    {
+                        "name": "A SER PREENCHIDO",
+                        "code": 9999
+                    }
+                ],
+                "mergePolicy": "esriMPTDefaultValue",
+                "splitPolicy": "esriSPTDuplicate"
+            }
+        },
+        {
+            "name": "x_coord",
+            "type": "esriFieldTypeDouble",
+            "alias": "Coordenada X",
+            "domain": null
+        },
+        {
+            "name": "y_coord",
+            "type": "esriFieldTypeDouble",
+            "alias": "Coordenada Y",
+            "domain": null
+        },
+        {
+            "name": "ctba_camada",
+            "type": "esriFieldTypeString",
+            "alias": "Camada Restituição",
+            "length": 255,
+            "domain": null
+        },
+        {
+            "name": "ctba_nome",
+            "type": "esriFieldTypeString",
+            "alias": "Nome",
+            "length": 255,
+            "domain": null
+        },
+        {
+            "name": "ctba_classe_edgv",
+            "type": "esriFieldTypeString",
+            "alias": "Classe do Banco ET-EDGV",
+            "length": 255,
+            "domain": null
+        },
+        {
+            "name": "shape",
+            "type": "esriFieldTypeGeometry",
+            "alias": "shape",
+            "domain": null
+        }
+    ],
+    "geometryField": {
+        "name": "shape",
+        "type": "esriFieldTypeGeometry",
+        "alias": "shape"
+    },
+    "indexes": [
+        {
+            "name": "r71_sde_rowid_uk",
+            "fields": "objectid",
+            "isAscending": true,
+            "isUnique": true,
+            "description": ""
+        },
+        {
+            "name": "a60_ix1",
+            "fields": "shape",
+            "isAscending": true,
+            "isUnique": true,
+            "description": ""
+        }
+    ],
+    "subtypes": [],
+    "relationships": [],
+    "canModifyLayer": true,
+    "canScaleSymbols": false,
+    "hasLabels": true,
+    "capabilities": "Map,Query,Data",
+    "maxRecordCount": 2000,
+    "supportsStatistics": true,
+    "supportsExceedsLimitStatistics": true,
+    "supportsAdvancedQueries": true,
+    "supportedQueryFormats": "JSON, geoJSON, PBF",
+    "isDataVersioned": false,
+    "ownershipBasedAccessControlForFeatures": {
+        "allowOthersToQuery": true
+    },
+    "useStandardizedQueries": true,
+    "advancedQueryCapabilities": {
+        "useStandardizedQueries": true,
+        "supportsStatistics": true,
+        "supportsPercentileStatistics": true,
+        "supportsHavingClause": true,
+        "supportsOrderBy": true,
+        "supportsDistinct": true,
+        "supportsCountDistinct": true,
+        "supportsPagination": true,
+        "supportsTrueCurve": true,
+        "supportsQueryWithDatumTransformation": true,
+        "supportsReturningQueryExtent": true,
+        "supportsQueryWithDistance": true,
+        "supportsSqlExpression": true
+    },
+    "supportsDatumTransformation": true,
+    "dateFieldsTimeReference": null,
+    "hasMetadata": true,
+    "isDataArchived": false,
+    "archivingInfo": {
+        "supportsQueryWithHistoricMoment": false,
+        "startArchivingMoment": -1
+    },
+    "supportsCoordinatesQuantization": true,
+    "supportsDynamicLegends": true,
+    "serviceItemId": "14244c3af7be4c5cab31502dce2dffee"
+}

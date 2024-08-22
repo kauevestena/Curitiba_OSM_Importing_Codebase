@@ -1,0 +1,263 @@
+{
+    "administracao": [
+        null
+    ],
+    "classeativecon": [
+        null
+    ],
+    "divisaoativecon": [
+        null
+    ],
+    "grupoativecon": [
+        null
+    ],
+    "proprioadm": [
+        null
+    ],
+    "bairro": [
+        null
+    ],
+    "bloco": [
+        null
+    ],
+    "cep": [
+        null
+    ],
+    "logradouro": [
+        null
+    ],
+    "municipio": [
+        null
+    ],
+    "numerometrico": [
+        null
+    ],
+    "numeropavimentos": [
+        null
+    ],
+    "numerosequencial": [
+        null
+    ],
+    "pais": [
+        null
+    ],
+    "unidadefederacao": [
+        null
+    ],
+    "administracao_1": [
+        null
+    ],
+    "alturaaproximada": [
+        null
+    ],
+    "cultura": [
+        9999
+    ],
+    "geometriaaproximada": [
+        0
+    ],
+    "matconstr": [
+        9999
+    ],
+    "operacional": [
+        9999
+    ],
+    "situacaofisica": [
+        9999
+    ],
+    "turistica": [
+        9999
+    ],
+    "id_complexo_desportivo": [
+        null
+    ],
+    "id_complexo_desportivo_lazer": [
+        null
+    ],
+    "id_complexo_recreativo": [
+        null
+    ],
+    "tipoedifagropec": [
+        null,
+        9999.0
+    ],
+    "finalidade": [
+        null,
+        9999.0
+    ],
+    "id_estrut_transporte": [
+        null
+    ],
+    "tipoedifcomercserv": [
+        null,
+        9999.0
+    ],
+    "tipologia_restituicao": [
+        null
+    ],
+    "id_complexo_comunicacao": [
+        null
+    ],
+    "modalidade": [
+        null,
+        9999.0
+    ],
+    "tipoedifcomunic": [
+        null,
+        9999.0
+    ],
+    "concessionaria": [
+        null
+    ],
+    "id_complexo_aeroportuario": [
+        null
+    ],
+    "jurisdicao": [
+        null,
+        9999.0
+    ],
+    "tipoedifaero": [
+        null,
+        9999.0
+    ],
+    "id_est_med_fen": [
+        null
+    ],
+    "tipoediflazer": [
+        null,
+        9999
+    ],
+    "id_complexo_portuario": [
+        null
+    ],
+    "tipoedifport": [
+        null
+    ],
+    "ovgd": [
+        null,
+        9999.0
+    ],
+    "tipoedifturist": [
+        null,
+        9999.0
+    ],
+    "tombada": [
+        null
+    ],
+    "id_complex_gerad_energ_elet": [
+        null
+    ],
+    "id_sub_trans_dist_ener_elet": [
+        null
+    ],
+    "tipoedifenergia": [
+        null,
+        9999.0
+    ],
+    "chamine": [
+        null
+    ],
+    "tipoedifmetroferrov": [
+        null,
+        9999.0
+    ],
+    "tipoedifpubcivil": [
+        null,
+        9999.0
+    ],
+    "tipousoedif": [
+        null,
+        9999.0
+    ],
+    "tipoinstalmilitar": [
+        null,
+        9999.0
+    ],
+    "crista": [
+        null
+    ],
+    "ensino": [
+        null,
+        9999.0
+    ],
+    "religiao": [
+        null
+    ],
+    "tipoedifrelig": [
+        null,
+        9999.0
+    ],
+    "tiporepdiplomatica": [
+        null
+    ],
+    "tipoedifrod": [
+        null,
+        9999.0
+    ],
+    "tipoedifsaneam": [
+        null,
+        9999.0
+    ],
+    "nivelatencao": [
+        null,
+        9999.0
+    ],
+    "tipopostofisc": [
+        null
+    ],
+    "id_complexo_saneamento": [
+        null
+    ],
+    "tipoedifsaneament": [
+        null
+    ],
+    "ctba_camada": [
+        "ED_CHAFARIZ",
+        "ED_EDIFICACAO_BASE_DE_PREDIO",
+        "ED_EDIFICACAO_02_PAVIMENTO",
+        "ED_EDIFICACAO_04_PAVIMENTO",
+        "ED_EDIFICACAO_03_PAVIMENTO",
+        "ED_EDIFICACAO_01_PAVIMENTO",
+        "SHOPPING",
+        "POSTO_DE_COMBUSTIVEL",
+        "ED_EDIFICACAO_TELHEIRO",
+        "ED_EDIFICACAO_MARQUISE",
+        "ED_EDIFICACAO_BARRACAO",
+        "ED_EDIFICACAO_ACIMA_DE_04_PAVIMENTOS",
+        "GUARITA",
+        "ED_EDIF_RELIGIOSA",
+        "ED_CONSTRUCAO_FUNDACAO_RUINA",
+        "ESTUFA"
+    ],
+    "ctba_classe_edgv": [
+        "ED_EDIF_PUB_MILITAR",
+        "ED_EDIF_CONSTR_EST_MED_FEN",
+        "ED_EDIF_SANEAMENTO",
+        "ED_CHAFARIZ",
+        "ED_EDIFICACAO",
+        "ED_EDIF_INDUSTRIAL",
+        "ED_EDIF_COMERC_SERV",
+        "ED_EDIF_POLICIA",
+        "ED_EDIF_ENSINO",
+        "ED_ESTADIO_DE_FUTEBOL",
+        "ED_POSTO_COMBUSTIVEL",
+        "ED_EDIF_DESENV_SOCIAL",
+        "ED_EDIF_CONSTR_AEROPORTUARIA",
+        "ED_EDIF_RODOVIARIA",
+        "ED_EDIF_PUB_CIVIL",
+        "ED_EDIF_AGROPEC_EXT_VEGETAL_PESCA",
+        "ED_EDIF_CONSTR_LAZER",
+        "ED_EDIF_COMUNIC",
+        "ED_POSTO_GUARDA_MUNICIPAL",
+        "ED_EDIF_ENERGIA",
+        "ED_EDIF_CONSTR_TURISTICA",
+        "ED_EDIF_ABAST_AGUA",
+        "ED_EDIF_METRO_FERROVIARIA",
+        "ED_POSTO_POLICIA_MILITAR",
+        "ED_EDIF_SAUDE",
+        "ITEM_FORA_DA_NORMA",
+        "ED_EDIF_RELIGIOSA",
+        "ED_CONSTRUCAO_FUNDACAO_RUINA",
+        "ED_PONTO_DE_ONIBUS"
+    ]
+}
