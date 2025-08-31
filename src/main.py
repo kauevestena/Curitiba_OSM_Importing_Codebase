@@ -1,4 +1,4 @@
-from constants import *
+from .constants import *
 
 import os, json
 from tqdm import tqdm
@@ -12,10 +12,22 @@ from json import JSONEncoder
 OSM_CRS = 'EPSG:4326'
 
 def create_dir(path):
+    """
+    Creates a directory if it does not exist.
+
+    Args:
+        path (str): The path to the directory.
+    """
     if not os.path.exists(path):
         os.makedirs(path)
 
 def create_folderlist(inputlist):
+    """
+    Creates a list of directories.
+
+    Args:
+        inputlist (list): A list of directory paths.
+    """
     return [create_dir(dirpath) for dirpath in inputlist]
 
 def read_json(path,default={}):
@@ -40,19 +52,36 @@ def read_json(path,default={}):
         return default
 
 class Int64Encoder(JSONEncoder):
+    """
+    A JSON encoder that converts int64 to string.
+    """
     def default(self, o):
         if isinstance(o, int):
             return str(o)
         return super().default(o)
 
 def dump_json(data, path):
+    """
+    Dumps a dictionary to a JSON file.
+
+    Args:
+        data (dict): The dictionary to dump.
+        path (str): The path to the JSON file.
+    """
     with open(path, 'w', encoding='utf-8') as f:
-        json.dump(data, f, ensure_ascii=False, indent=4,
-                #   cls=Int64Encoder,
-                )
+        json.dump(data, f, ensure_ascii=False, indent=4)
 
 def get_layer_url(layername,use_alt=False):
+    """
+    Gets the URL of a layer.
 
+    Args:
+        layername (str): The name of the layer.
+        use_alt (bool, optional): Whether to use the alternative URL. Defaults to False.
+
+    Returns:
+        str: The URL of the layer.
+    """
     baseurl = MAPSERVER_URL
 
     if use_alt:
@@ -69,8 +98,7 @@ def get_layer_url(layername,use_alt=False):
     return urljoin(baseurl,layer_id)
 
 def get_layer_metadata(layername,use_alt=False,outpath=None):
-    """    layer_url, d , total_feats, layer_metadata = get_basic_layer_stuff(layername,use_alt=use_alt)
-
+    """
     Retrieves the metadata of a layer from the EsriDumper object.
 
     Args:
@@ -81,34 +109,53 @@ def get_layer_metadata(layername,use_alt=False,outpath=None):
     Returns:
         dict: The metadata of the layer.
     """
-
     d = EsriDumper(get_layer_url(layername,use_alt=use_alt))
-
     md = d.get_metadata()
-
     if outpath:
         dump_json(md,outpath)
-
     return md
 
-# TODO: get_layer_crs
-
 def get_basic_layer_stuff(layername,use_alt=False):
-    
+    """
+    Gets basic information about a layer.
+
+    Args:
+        layername (str): The name of the layer.
+        use_alt (bool, optional): Whether to use the alternative URL. Defaults to False.
+
+    Returns:
+        tuple: A tuple containing the layer URL, the EsriDumper object, the total number of features, and the layer metadata.
+    """
     layer_url = get_layer_url(layername,use_alt=use_alt)
-
     d = EsriDumper(layer_url)
-
     total_feats = None
-
     try :
         total_feats = d.get_feature_count()
     except Exception as e:
         logging.error(e)
-    
     layer_metadata = d.get_metadata()
+    return layer_url, d, total_feats, layer_metadata
 
-    return layer_url, d , total_feats, layer_metadata
+@retry(wait=wait_exponential(multiplier=1, min=10, max=120) + wait_random(min=1, max=12))
+def get_features(layername, use_alt=False, start_with=0, max_page_size=100, extra_query_args=None, timeout=None):
+    """
+    Retrieves features from an Esri layer.
+
+    Args:
+        layername (str): The name of the layer.
+        use_alt (bool, optional): Whether to use the alternative URL. Defaults to False.
+        start_with (int, optional): The starting index for fetching features. Defaults to 0.
+        max_page_size (int, optional): The maximum number of features per page. Defaults to 100.
+        extra_query_args (dict, optional): Extra query arguments. Defaults to None.
+        timeout (int, optional): The timeout for the request. Defaults to None.
+
+    Returns:
+        tuple: A tuple containing the EsriDumper object and the total number of features.
+    """
+    layer_url = get_layer_url(layername, use_alt=use_alt)
+    d = EsriDumper(layer_url, start_with=start_with, max_page_size=max_page_size, extra_query_args=extra_query_args, timeout=timeout)
+    total_feats = d.get_feature_count()
+    return d, total_feats
 
 def silly_dumper(layername,use_alt=False,outpath=None,different_crs=None,as_geoparquet=False):
     """
@@ -126,7 +173,8 @@ def silly_dumper(layername,use_alt=False,outpath=None,different_crs=None,as_geop
     Returns:
         gpd.GeoDataFrame: The GeoDataFrame containing the dumped features.
     """
-    _ , d , total_feats, layer_metadata = get_basic_layer_stuff(layername,use_alt=use_alt)
+    d, total_feats = get_features(layername, use_alt=use_alt)
+    layer_metadata = d.get_metadata()
 
     all_feats = [feature for feature in tqdm(d,total=total_feats)]
 
@@ -148,10 +196,26 @@ def silly_dumper(layername,use_alt=False,outpath=None,different_crs=None,as_geop
     return as_gdf
 
 def append_to_file(filepath,data_str):
+    """
+    Appends a string to a file.
+
+    Args:
+        filepath (str): The path to the file.
+        data_str (str): The string to append.
+    """
     with open(filepath,'a',encoding='utf-8') as f:
         f.write(data_str)
 
 def read_file_as_list(filepath):
+    """
+    Reads a file and returns a list of lines.
+
+    Args:
+        filepath (str): The path to the file.
+
+    Returns:
+        list: A list of lines.
+    """
     if os.path.exists(filepath):
         with open(filepath,'r',encoding='utf-8') as f:
             return [line.strip() for line in f.readlines()]
@@ -159,6 +223,16 @@ def read_file_as_list(filepath):
         return []
 
 def listdir_fullpath(inputfolderpath,extension=None):
+    """
+    Lists all files in a directory.
+
+    Args:
+        inputfolderpath (str): The path to the directory.
+        extension (str, optional): The extension of the files to list. Defaults to None.
+
+    Returns:
+        list: A list of full paths to the files.
+    """
     if not os.path.exists(inputfolderpath):
         return []
     else:
@@ -167,7 +241,7 @@ def listdir_fullpath(inputfolderpath,extension=None):
         else:
             return [os.path.join(inputfolderpath,filename) for filename in os.listdir(inputfolderpath)]
 
-@retry(wait=wait_exponential(multiplier=1, min=10, max=120) + wait_random(min=1, max=12)) # ITS LAZY BUT RESILIENT!!!
+@retry(wait=wait_exponential(multiplier=1, min=10, max=120) + wait_random(min=1, max=12))
 def geojsonl_lazy_dumper(layername,use_alt=False,outfolderpath=None,out_crs=None,chunksize=1000,page_size=100,extra_parameters=None,timeout=None):
     """
     Dumps the features of a given layer in the geojsonl format with resume capabilities.
@@ -214,10 +288,8 @@ def geojsonl_lazy_dumper(layername,use_alt=False,outfolderpath=None,out_crs=None
     create_dir(outfolderpath)
 
     # get layer stuff
-    layer_url , _ , total_feats, layer_metadata = get_basic_layer_stuff(layername,use_alt=use_alt)
-
-    # for proper resuming capabilities: 
-    d = EsriDumper(layer_url,start_with=start_idx,max_page_size=page_size,extra_query_args=extra_parameters,timeout=timeout)
+    d, total_feats = get_features(layername, use_alt=use_alt, start_with=start_idx, max_page_size=page_size, extra_query_args=extra_parameters, timeout=timeout)
+    layer_metadata = d.get_metadata()
 
     j = n_chunks # - 1
     outpath = layer_outpath(layername,outfolderpath,j=j)
@@ -245,4 +317,30 @@ logging.basicConfig(filename='logs/global_log.log',
                     datefmt='%d-%b-%y %H:%M:%S',filemode='w')
 
 def list_of_set_of_list(inputlist):
+    """
+    Removes duplicates from a list.
+
+    Args:
+        inputlist (list): The list to remove duplicates from.
+
+    Returns:
+        list: The list without duplicates.
+    """
     return list(set(inputlist))
+
+def get_filelist(category,folder='outputs',extension='.geojsonl'):
+    """
+    Gets a list of files in a directory.
+
+    Args:
+        category (str): The category of the files.
+        folder (str, optional): The folder to search in. Defaults to 'outputs'.
+        extension (str, optional): The extension of the files. Defaults to '.geojsonl'.
+
+    Returns:
+        tuple: A tuple containing the search path and the list of files.
+    """
+    search_path = os.path.join(folder,category)
+    filelist = [file for file in os.listdir(search_path) if file.endswith(extension) and category in file]
+
+    return search_path,filelist
