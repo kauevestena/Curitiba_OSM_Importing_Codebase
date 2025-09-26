@@ -120,13 +120,24 @@ def get_layer_url(layername, use_alt=False):
 
     Returns:
         str: The full URL of the layer.
+    
+    Raises:
+        ValueError: If layername is empty or not found in LAYER_IDS.
     """
+    if not layername:
+        raise ValueError("layername cannot be empty")
+    
     baseurl = MAPSERVER_URL_ALT if use_alt else MAPSERVER_URL
 
     if not baseurl.endswith('/'):
         baseurl += '/'
 
     layer_id_key = f"{layername}_alt" if use_alt else layername
+    
+    if layer_id_key not in LAYER_IDS:
+        available_layers = list(LAYER_IDS.keys())
+        raise ValueError(f"Layer '{layer_id_key}' not found. Available layers: {available_layers}")
+    
     layer_id = LAYER_IDS[layer_id_key]
 
     return urljoin(baseurl, str(layer_id))
@@ -205,26 +216,40 @@ def silly_dumper(layername, use_alt=False, outpath=None, different_crs=None, as_
 
     Returns:
         gpd.GeoDataFrame: A GeoDataFrame containing all features from the layer.
+    
+    Raises:
+        ValueError: If layername is empty.
+        Exception: If there are issues with data retrieval or file operations.
     """
-    _, d, total_feats, layer_metadata = get_basic_layer_stuff(layername, use_alt=use_alt)
+    if not layername:
+        raise ValueError("layername cannot be empty")
+    
+    try:
+        _, d, total_feats, layer_metadata = get_basic_layer_stuff(layername, use_alt=use_alt)
 
-    all_feats = [feature for feature in tqdm(d, total=total_feats)]
+        all_feats = [feature for feature in tqdm(d, total=total_feats)]
 
-    if different_crs:
-        as_gdf = gpd.GeoDataFrame.from_features(all_feats, crs=different_crs).to_crs(OSM_CRS)
-    else:
-        as_gdf = gpd.GeoDataFrame.from_features(all_feats, crs=OSM_CRS)
-
-    if outpath:
-        if as_geoparquet:
-            as_gdf.to_parquet(outpath)
+        if different_crs:
+            as_gdf = gpd.GeoDataFrame.from_features(all_feats, crs=different_crs).to_crs(OSM_CRS)
         else:
-            as_gdf.to_file(outpath)
+            as_gdf = gpd.GeoDataFrame.from_features(all_feats, crs=OSM_CRS)
 
-        metadata_outpath = outpath.split('.')[0] + '_metadata.json'
-        dump_json(layer_metadata, metadata_outpath)
+        if outpath:
+            if as_geoparquet:
+                as_gdf.to_parquet(outpath)
+            else:
+                as_gdf.to_file(outpath)
 
-    return as_gdf
+            # Create metadata path by replacing the file extension
+            base_name = os.path.splitext(outpath)[0]
+            metadata_outpath = f"{base_name}_metadata.json"
+            dump_json(layer_metadata, metadata_outpath)
+
+        return as_gdf
+    
+    except Exception as e:
+        logging.error(f"Error in silly_dumper for layer {layername}: {e}")
+        raise
 
 def append_to_file(filepath, data_str):
     """
