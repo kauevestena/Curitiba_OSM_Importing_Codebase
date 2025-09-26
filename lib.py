@@ -12,10 +12,22 @@ from json import JSONEncoder
 OSM_CRS = 'EPSG:4326'
 
 def create_dir(path):
+    """
+    Creates a directory if it does not already exist.
+
+    Args:
+        path (str): The path of the directory to create.
+    """
     if not os.path.exists(path):
         os.makedirs(path)
 
 def create_folderlist(inputlist):
+    """
+    Creates a list of directories.
+
+    Args:
+        inputlist (list): A list of directory paths to create.
+    """
     return [create_dir(dirpath) for dirpath in inputlist]
 
 def read_json(path,default={}):
@@ -40,100 +52,130 @@ def read_json(path,default={}):
         return default
 
 class Int64Encoder(JSONEncoder):
+    """
+    A custom JSON encoder to handle int64 objects, which are not serializable by default.
+    """
     def default(self, o):
         if isinstance(o, int):
             return str(o)
         return super().default(o)
 
 def dump_json(data, path):
+    """
+    Dumps a dictionary or list to a JSON file.
+
+    Args:
+        data (dict or list): The data to dump.
+        path (str): The path to the output JSON file.
+    """
     with open(path, 'w', encoding='utf-8') as f:
-        json.dump(data, f, ensure_ascii=False, indent=4,
-                #   cls=Int64Encoder,
-                )
+        json.dump(data, f, ensure_ascii=False, indent=4)
 
-def get_layer_url(layername,use_alt=False):
+def get_layer_url(layername, use_alt=False):
+    """
+    Constructs the URL for a specific layer.
 
-    baseurl = MAPSERVER_URL
+    Args:
+        layername (str): The name of the layer.
+        use_alt (bool, optional): Whether to use the alternative map server URL.
+                                  Defaults to False.
 
-    if use_alt:
-        baseurl = MAPSERVER_URL_ALT
+    Returns:
+        str: The full URL of the layer.
+    """
+    baseurl = MAPSERVER_URL_ALT if use_alt else MAPSERVER_URL
 
     if not baseurl.endswith('/'):
         baseurl += '/'
 
-    layer_id = LAYER_IDS[layername]
+    layer_id_key = f"{layername}_alt" if use_alt else layername
+    layer_id = LAYER_IDS[layer_id_key]
 
-    if use_alt:
-        layer_id = LAYER_IDS[layername+'_alt']
+    return urljoin(baseurl, str(layer_id))
 
-    return urljoin(baseurl,layer_id)
-
-def get_layer_metadata(layername,use_alt=False,outpath=None):
-    """    layer_url, d , total_feats, layer_metadata = get_basic_layer_stuff(layername,use_alt=use_alt)
-
-    Retrieves the metadata of a layer from the EsriDumper object.
+def get_layer_metadata(layername, use_alt=False, outpath=None):
+    """
+    Retrieves and optionally saves the metadata of a map service layer.
 
     Args:
-        layername (str): The name of the layer to retrieve the metadata for.
-        use_alt (bool, optional): Whether to use the alternative layer URL. Defaults to False.
-        outpath (str, optional): The path to save the metadata as a JSON file. Defaults to None.
+        layername (str): The name of the layer.
+        use_alt (bool, optional): Whether to use the alternative map server URL.
+                                  Defaults to False.
+        outpath (str, optional): The file path to save the metadata as a JSON file.
+                                 If None, the metadata is not saved. Defaults to None.
 
     Returns:
-        dict: The metadata of the layer.
+        dict: A dictionary containing the layer's metadata.
     """
-
-    d = EsriDumper(get_layer_url(layername,use_alt=use_alt))
-
+    d = EsriDumper(get_layer_url(layername, use_alt=use_alt))
     md = d.get_metadata()
 
     if outpath:
-        dump_json(md,outpath)
+        dump_json(md, outpath)
 
     return md
 
 # TODO: get_layer_crs
 
-def get_basic_layer_stuff(layername,use_alt=False):
-    
-    layer_url = get_layer_url(layername,use_alt=use_alt)
+def get_basic_layer_stuff(layername, use_alt=False):
+    """
+    Initializes an EsriDumper and retrieves basic layer information.
 
+    Args:
+        layername (str): The name of the layer.
+        use_alt (bool, optional): Whether to use the alternative map server URL.
+                                  Defaults to False.
+
+    Returns:
+        tuple: A tuple containing:
+            - str: The layer's URL.
+            - EsriDumper: An EsriDumper instance for the layer.
+            - int: The total number of features in the layer.
+            - dict: The layer's metadata.
+    """
+    layer_url = get_layer_url(layername, use_alt=use_alt)
     d = EsriDumper(layer_url)
 
     total_feats = None
-
-    try :
+    try:
         total_feats = d.get_feature_count()
     except Exception as e:
         logging.error(e)
     
     layer_metadata = d.get_metadata()
 
-    return layer_url, d , total_feats, layer_metadata
+    return layer_url, d, total_feats, layer_metadata
 
-def silly_dumper(layername,use_alt=False,outpath=None,different_crs=None,as_geoparquet=False):
+def silly_dumper(layername, use_alt=False, outpath=None, different_crs=None, as_geoparquet=False):
     """
-    Dumps the features of a given layer from the EsriDumper object and returns a GeoDataFrame.
-    
-    It got no optimization, it got no filtering, it got no pagination.
-    It's just a poor silly little thing hahaha
+    Dumps all features from a layer into a GeoDataFrame.
 
-    Parameters:
+    This function provides a simple way to dump all features from a layer without
+    any filtering or pagination. It is not optimized for large datasets.
+
+    Args:
         layername (str): The name of the layer to dump.
-        use_alt (bool, optional): Whether to use the alternative layer URL. Defaults to False.
-        outpath (str, optional): The path to save the GeoDataFrame as a file. Defaults to None.
-        crs (str, optional): The CRS of the GeoDataFrame. Defaults to DEFAULT_CRS.
-    
-    Returns:
-        gpd.GeoDataFrame: The GeoDataFrame containing the dumped features.
-    """
-    _ , d , total_feats, layer_metadata = get_basic_layer_stuff(layername,use_alt=use_alt)
+        use_alt (bool, optional): Whether to use the alternative map server URL.
+                                  Defaults to False.
+        outpath (str, optional): The file path to save the output. If None, the
+                                 GeoDataFrame is not saved. Defaults to None.
+        different_crs (str, optional): The original CRS of the data if it's not
+                                       the default. Defaults to None.
+        as_geoparquet (bool, optional): If True, saves the output as a GeoParquet
+                                        file. Otherwise, saves as a GeoJSON file.
+                                        Defaults to False.
 
-    all_feats = [feature for feature in tqdm(d,total=total_feats)]
+    Returns:
+        gpd.GeoDataFrame: A GeoDataFrame containing all features from the layer.
+    """
+    _, d, total_feats, layer_metadata = get_basic_layer_stuff(layername, use_alt=use_alt)
+
+    all_feats = [feature for feature in tqdm(d, total=total_feats)]
 
     if different_crs:
-        as_gdf = gpd.GeoDataFrame.from_features(all_feats,crs=different_crs).to_crs(OSM_CRS)
+        as_gdf = gpd.GeoDataFrame.from_features(all_feats, crs=different_crs).to_crs(OSM_CRS)
     else:
-        as_gdf = gpd.GeoDataFrame.from_features(all_feats,crs=OSM_CRS) # apparently, default is WGS84 already
+        as_gdf = gpd.GeoDataFrame.from_features(all_feats, crs=OSM_CRS)
 
     if outpath:
         if as_geoparquet:
@@ -142,45 +184,84 @@ def silly_dumper(layername,use_alt=False,outpath=None,different_crs=None,as_geop
             as_gdf.to_file(outpath)
 
         metadata_outpath = outpath.split('.')[0] + '_metadata.json'
-
-        dump_json(layer_metadata,metadata_outpath)
+        dump_json(layer_metadata, metadata_outpath)
 
     return as_gdf
 
-def append_to_file(filepath,data_str):
-    with open(filepath,'a',encoding='utf-8') as f:
+def append_to_file(filepath, data_str):
+    """
+    Appends a string to a file.
+
+    Args:
+        filepath (str): The path to the file.
+        data_str (str): The string to append.
+    """
+    with open(filepath, 'a', encoding='utf-8') as f:
         f.write(data_str)
 
+
 def read_file_as_list(filepath):
+    """
+    Reads a file and returns its lines as a list of strings.
+
+    Args:
+        filepath (str): The path to the file.
+
+    Returns:
+        list: A list of strings, where each string is a line from the file.
+              Returns an empty list if the file does not exist.
+    """
     if os.path.exists(filepath):
-        with open(filepath,'r',encoding='utf-8') as f:
+        with open(filepath, 'r', encoding='utf-8') as f:
             return [line.strip() for line in f.readlines()]
     else:
         return []
 
-def listdir_fullpath(inputfolderpath,extension=None):
+
+def listdir_fullpath(inputfolderpath, extension=None):
+    """
+    Lists all files in a directory, returning their full paths.
+
+    Args:
+        inputfolderpath (str): The path to the directory.
+        extension (str, optional): If provided, only files with this extension
+                                   are returned. Defaults to None.
+
+    Returns:
+        list: A list of full paths to the files in the directory.
+    """
     if not os.path.exists(inputfolderpath):
         return []
     else:
         if extension:
-            return [os.path.join(inputfolderpath,filename) for filename in os.listdir(inputfolderpath) if filename.endswith(extension)]
+            return [os.path.join(inputfolderpath, filename) for filename in os.listdir(inputfolderpath) if
+                    filename.endswith(extension)]
         else:
-            return [os.path.join(inputfolderpath,filename) for filename in os.listdir(inputfolderpath)]
+            return [os.path.join(inputfolderpath, filename) for filename in os.listdir(inputfolderpath)]
 
-@retry(wait=wait_exponential(multiplier=1, min=10, max=120) + wait_random(min=1, max=12)) # ITS LAZY BUT RESILIENT!!!
-def geojsonl_lazy_dumper(layername,use_alt=False,outfolderpath=None,out_crs=None,chunksize=1000,page_size=100,extra_parameters=None,timeout=None):
+@retry(wait=wait_exponential(multiplier=1, min=10, max=120) + wait_random(min=1, max=12))
+def geojsonl_lazy_dumper(layername, use_alt=False, outfolderpath=None, out_crs=None, chunksize=1000, page_size=100, extra_parameters=None, timeout=None):
     """
-    Dumps the features of a given layer in the geojsonl format with resume capabilities.
+    Dumps features from a layer to a GeoJSONL file with resume capabilities.
 
-    Parameters:
+    This function is designed to be resilient, using exponential backoff for retries.
+    It can resume downloads from where they left off by checking for a registry of
+    completed chunks.
+
+    Args:
         layername (str): The name of the layer to dump.
-        use_alt (bool, optional): Whether to use the alternative layer URL. Defaults to False.
-        outfolderpath (str): The path to output the dumped features.
-        crs (str): The CRS of the dumped features. Defaults to DEFAULT_CRS.
-        chunksize (int): The number of features per chunk.
-
-    Returns:
-        None
+        use_alt (bool, optional): Whether to use the alternative map server URL.
+                                  Defaults to False.
+        outfolderpath (str, optional): The directory to save the output files.
+                                       Defaults to None.
+        out_crs (str, optional): The CRS for the output data. Defaults to None.
+        chunksize (int, optional): The number of features to save in each chunk file.
+                                   Defaults to 1000.
+        page_size (int, optional): The number of features to request per page from
+                                   the server. Defaults to 100.
+        extra_parameters (dict, optional): Extra parameters to pass in the query to
+                                           the server. Defaults to None.
+        timeout (int, optional): The timeout for the HTTP requests. Defaults to None.
     """
     def layer_outpath(layername,outfolderpath,j=0):
 
@@ -245,4 +326,13 @@ logging.basicConfig(filename='logs/global_log.log',
                     datefmt='%d-%b-%y %H:%M:%S',filemode='w')
 
 def list_of_set_of_list(inputlist):
+    """
+    Removes duplicate elements from a list by converting it to a set and back to a list.
+
+    Args:
+        inputlist (list): The input list.
+
+    Returns:
+        list: A new list with duplicate elements removed.
+    """
     return list(set(inputlist))
