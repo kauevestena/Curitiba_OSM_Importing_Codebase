@@ -1,5 +1,6 @@
 # JUST TO IMPORT STUFF
 import sys
+import os
 sys.path.append('.')
 from lib import *
 
@@ -17,8 +18,24 @@ def get_filelist(category, folder='outputs', extension='.geojsonl'):
         tuple: A tuple containing:
             - str: The full path of the search directory.
             - list: A list of filenames that match the criteria.
+    
+    Raises:
+        ValueError: If category is empty.
+        FileNotFoundError: If the search directory doesn't exist.
     """
+    if not category:
+        raise ValueError("category cannot be empty")
+    
     search_path = os.path.join(folder, category)
-    filelist = [file for file in os.listdir(search_path) if file.endswith(extension) and category in file]
-
+    
+    if not os.path.exists(search_path):
+        raise FileNotFoundError(f"Directory {search_path} does not exist")
+    
+    try:
+        filelist = [file for file in os.listdir(search_path) 
+                   if file.endswith(extension) and category in file]
+    except OSError as e:
+        logging.error(f"Error reading directory {search_path}: {e}")
+        raise
+    
     return search_path, filelist
