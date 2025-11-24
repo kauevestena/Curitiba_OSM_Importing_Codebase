@@ -30,14 +30,18 @@ jobs:
       - name: Run lazy_dumper_buildings script
         run: python scripts/lazy_dumper_buildings.py --output data/buildings
 
-      - name: Pull latest changes
+      - name: Configure git
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git pull --rebase origin ${{ github.ref_name }}
 
       - name: Commit and push changes
         run: |
           git add data/buildings/
-          git diff --cached --quiet || git commit -m "Update building data [automated]"
-          git push
+          if ! git diff --cached --quiet; then
+            TIMESTAMP=$(date -u +"%Y-%m-%d %H:%M:%S UTC")
+            git commit -m "Update building data - ${TIMESTAMP} [automated]"
+            git fetch origin ${{ github.ref_name }}
+            git merge --strategy-option=ours origin/${{ github.ref_name }} || true
+            git push
+          fi
